@@ -28,7 +28,12 @@
 # SETUP ENVIRONMENT
 #
 
-mkdir mani 2> /dev/null		# manifest files
+PATH_TMP=/tmp
+PATH_MANI=$PATH_TMP/mani
+PATH_TMP_EPG=$PATH_TMP/epg
+
+mkdir -p $PATH_MANI 2> /dev/null		# manifest files
+mkdir -p $PATH_TMP_EPG 2> /dev/null		# manifest files
 
 if grep -q "DE" init.json 2> /dev/null
 then
@@ -115,30 +120,30 @@ echo "- DOWNLOAD PROCESS -" && echo ""
 
 printf "\rDeleting old files...                       "
 
-rm mani/* 2> /dev/null
+rm $PATH_MANI/* 2> /dev/null
 
 #
 # LOADING MANIFEST FILES
 #
 
 printf "\rFetching channel list... "
-curl -s $baseurl/channels > /tmp/chlist
-jq '.' /tmp/chlist > /tmp/workfile
+curl -s $baseurl/channels > $PATH_TMP_EPG/chlist
+jq '.' $PATH_TMP_EPG/chlist > $PATH_TMP_EPG/workfile
 
 printf "\rChecking manifest files... "
-perl chlist_printer.pl > /tmp/compare.json
-perl url_printer.pl 2>errors.txt | sed '/DUMMY/d' > mani/common
+perl chlist_printer.pl > $PATH_TMP/compare.json
+perl url_printer.pl 2>$PATH_TMP_EPG/errors.txt | sed '/DUMMY/d' > $PATH_MANI/common
 
-printf "\n$(echo $(wc -l < mani/common)) manifest file(s) to be downloaded!\n\n"
-if [ $(wc -l < mani/common) -ge 7 ]
+printf "\n$(echo $(wc -l < $PATH_MANI/common)) manifest file(s) to be downloaded!\n\n"
+if [ $(wc -l < $PATH_MANI/common) -ge 7 ]
 then
-	number=$(echo $(( $(wc -l < mani/common) / 7)))
+	number=$(echo $(( $(wc -l < $PATH_MANI/common) / 7)))
 
-	split --lines=$(( $number + 1 )) --numeric-suffixes mani/common mani/day
+	split --lines=$(( $number + 1 )) --numeric-suffixes $PATH_MANI/common $PATH_MANI/day
 
-	rm mani/common 2> /dev/null
-else	
-	mv mani/common mani/day00
+	rm $PATH_MANI/common 2> /dev/null
+else
+	mv $PATH_MANI/common $PATH_MANI/day00
 fi
 
 
@@ -146,7 +151,7 @@ fi
 # CREATE STATUS BAR FOR MANIFEST FILE DOWNLOAD
 #
 
-x=$(wc -l < mani/day00)
+x=$(wc -l < $PATH_MANI/day00)
 y=20
 h=40
 
@@ -172,96 +177,96 @@ then
 	z90=$(expr $x / $y \* 18)
 	z95=$(expr $x / $y \* 19)
 
-	echo "#!/bin/bash" > progressbar
+	echo "#!/bin/bash" > $PATH_TMP_EPG/progressbar
 
 	# START
-	echo "sed -i '2i\\" >> progressbar
-	echo "Progress [                    ]   0%% ' mani/day00" >> progressbar
+	echo "sed -i '2i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [                    ]   0%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 5%
-	echo "sed -i '$z5 i\\" >> progressbar
-	echo "Progress [#                   ]   5%% ' mani/day00" >> progressbar
+	echo "sed -i '$z5 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [#                   ]   5%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 10%
-	echo "sed -i '$z10 i\\" >> progressbar
-	echo "Progress [##                  ]  10%% ' mani/day00" >> progressbar
-	
+	echo "sed -i '$z10 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [##                  ]  10%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
+
 	# 15%
-	echo "sed -i '$z15 i\\" >> progressbar
-	echo "Progress [###                 ]  15%% ' mani/day00" >> progressbar
+	echo "sed -i '$z15 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [###                 ]  15%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 20%
-	echo "sed -i '$z20 i\\" >> progressbar
-	echo "Progress [####                ]  20%% ' mani/day00" >> progressbar
+	echo "sed -i '$z20 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [####                ]  20%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 25%
-	echo "sed -i '$z25 i\\" >> progressbar
-	echo "Progress [#####               ]  25%% ' mani/day00" >> progressbar
+	echo "sed -i '$z25 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [#####               ]  25%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 30%
-	echo "sed -i '$z30 i\\" >> progressbar
-	echo "Progress [######              ]  30%% ' mani/day00" >> progressbar
+	echo "sed -i '$z30 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [######              ]  30%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 35%
-	echo "sed -i '$z35 i\\" >> progressbar
-	echo "Progress [#######             ]  35%% ' mani/day00" >> progressbar
+	echo "sed -i '$z35 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [#######             ]  35%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 40%
-	echo "sed -i '$z40 i\\" >> progressbar
-	echo "Progress [########            ]  40%% ' mani/day00" >> progressbar
+	echo "sed -i '$z40 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [########            ]  40%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 45%
-	echo "sed -i '$z45 i\\" >> progressbar
-	echo "Progress [#########           ]  45%% ' mani/day00" >> progressbar
+	echo "sed -i '$z45 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [#########           ]  45%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 50%
-	echo "sed -i '$z50 i\\" >> progressbar
-	echo "Progress [##########          ]  50%% ' mani/day00" >> progressbar
+	echo "sed -i '$z50 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [##########          ]  50%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 55%
-	echo "sed -i '$z55 i\\" >> progressbar
-	echo "Progress [###########         ]  55%% ' mani/day00" >> progressbar
+	echo "sed -i '$z55 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [###########         ]  55%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 60%
-	echo "sed -i '$z60 i\\" >> progressbar
-	echo "Progress [############        ]  60%% ' mani/day00" >> progressbar
+	echo "sed -i '$z60 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [############        ]  60%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 65%
-	echo "sed -i '$z65 i\\" >> progressbar
-	echo "Progress [#############       ]  65%% ' mani/day00" >> progressbar
+	echo "sed -i '$z65 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [#############       ]  65%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 70%
-	echo "sed -i '$z70 i\\" >> progressbar
-	echo "Progress [##############      ]  70%% ' mani/day00" >> progressbar
+	echo "sed -i '$z70 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [##############      ]  70%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 75%
-	echo "sed -i '$z75 i\\" >> progressbar
-	echo "Progress [###############     ]  75%% ' mani/day00" >> progressbar
+	echo "sed -i '$z75 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [###############     ]  75%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 80%
-	echo "sed -i '$z80 i\\" >> progressbar
-	echo "Progress [################    ]  80%% ' mani/day00" >> progressbar
+	echo "sed -i '$z80 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [################    ]  80%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 85%
-	echo "sed -i '$z85 i\\" >> progressbar
-	echo "Progress [#################   ]  85%% ' mani/day00" >> progressbar
+	echo "sed -i '$z85 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [#################   ]  85%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 90%
-	echo "sed -i '$z90 i\\" >> progressbar
-	echo "Progress [##################  ]  90%% ' mani/day00" >> progressbar
+	echo "sed -i '$z90 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [##################  ]  90%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 95%
-	echo "sed -i '$z95 i\\" >> progressbar
-	echo "Progress [################### ]  95%% ' mani/day00" >> progressbar
+	echo "sed -i '$z95 i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [################### ]  95%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
 	# 100%
-	echo "sed -i '\$i\\" >> progressbar
-	echo "Progress [####################] 100%% ' mani/day00" >> progressbar
+	echo "sed -i '\$i\\" >> $PATH_TMP_EPG/progressbar
+	echo "Progress [####################] 100%% ' $PATH_MANI/day00" >> $PATH_TMP_EPG/progressbar
 
-	sed -i 's/ i/i/g' progressbar
-	bash progressbar
-	sed -i -e 's/Progress/printf "\\rProgress/g' -e '/Progress/s/.*/&"/g' mani/day00
-	rm progressbar
+	sed -i 's/ i/i/g' $PATH_TMP_EPG/progressbar
+	bash $PATH_TMP_EPG/progressbar
+	sed -i -e 's/Progress/printf "\\rProgress/g' -e '/Progress/s/.*/&"/g' $PATH_MANI/day00
+	rm $PATH_TMP_EPG/progressbar
 fi
 
 
@@ -270,8 +275,8 @@ fi
 #
 
 for time in {0..8..1}
-do	
-	sed -i '1i#\!\/bin\/bash\n' mani/day0${time} 2> /dev/null
+do
+	sed -i '1i#\!\/bin\/bash\n' $PATH_MANI/day0${time} 2> /dev/null
 done
 
 
@@ -284,11 +289,11 @@ echo ""
 
 for a in {0..8..1}
 do
-	bash mani/day0${a} 2> /dev/null &
+	bash $PATH_MANI/day0${a} 2> /dev/null &
 done
 wait
 
-rm mani/day0* 2> /dev/null
+rm $PATH_MANI/day0* 2> /dev/null
 
 echo "DONE!" && printf "\n"
 
@@ -299,11 +304,11 @@ echo "DONE!" && printf "\n"
 
 printf "\rCreating EPG manifest file... "
 
-rm /tmp/manifile.json 2> /dev/null
-cat mani/* > /tmp/manifile.json
-sed -i 's/}\]}}/}]}/g' /tmp/manifile.json
-jq -s '.' /tmp/manifile.json > /tmp/epg_workfile 2>>errors.txt
-sed -i '1s/\[/{ "attributes":[/g;$s/\]/&}/g' /tmp/epg_workfile
+rm $PATH_TMP_EPG/manifile.json 2> /dev/null
+cat $PATH_MANI/* > $PATH_TMP_EPG/manifile.json
+sed -i 's/}\]}}/}]}/g' $PATH_TMP_EPG/manifile.json
+jq -s '.' $PATH_TMP_EPG/manifile.json > $PATH_TMP_EPG/epg_workfile 2>>$PATH_TMP_EPG/errors.txt
+sed -i '1s/\[/{ "attributes":[/g;$s/\]/&}/g' $PATH_TMP_EPG/epg_workfile
 
 echo "DONE!" && printf "\n"
 
@@ -312,26 +317,26 @@ echo "DONE!" && printf "\n"
 # SHOW ERROR MESSAGE + ABORT PROCESS IF CHANNEL IDs WERE CHANGED
 #
 
-sort -u errors.txt > /tmp/errors_sorted.txt && mv /tmp/errors_sorted.txt errors.txt
+sort -u $PATH_TMP_EPG/errors.txt > $PATH_TMP_EPG/errors_sorted.txt && mv $PATH_TMP_EPG/errors_sorted.txt $PATH_TMP_EPG/errors.txt
 
-if [ -s errors.txt ]
+if [ -s $PATH_TMP_EPG/errors.txt ]
 then
 	echo "================= CHANNEL LIST: LOG ==================="
 	echo ""
-	
-	input="errors.txt"
+
+	input="$PATH_TMP_EPG/errors.txt"
 	while IFS= read -r var
 	do
 		echo "$var"
 	done < "$input"
-	
+
 	echo ""
 	echo "======================================================="
 	echo ""
-	
-	# cp /tmp/chlist chlist_old
+
+	cp $PATH_TMP_EPG/chlist chlist_old
 else
-	rm errors.txt 2> /dev/null
+	rm $PATH_TMP_EPG/errors.txt 2> /dev/null
 fi
 
 
@@ -343,97 +348,96 @@ fi
 
 echo "- FILE CREATION PROCESS -" && echo ""
 
-rm workfile chlist 2> /dev/null
+rm $PATH_TMP_EPG/workfile $PATH_TMP_EPG/chlist 2> /dev/null
 
 
 # DOWNLOAD CHANNEL LIST + RYTEC/EIT CONFIG FILES (JSON)
 printf "\rRetrieving channel list and config files...          "
-curl -s $baseurl/channels > chlist
-curl -s https://raw.githubusercontent.com/sunsettrack4/config_files/master/hzn_channels.json > hzn_channels.json
-curl -s https://raw.githubusercontent.com/sunsettrack4/config_files/master/hzn_genres.json > hzn_genres.json
+curl -s $baseurl/channels > $PATH_TMP_EPG/chlist
+curl -s https://raw.githubusercontent.com/sunsettrack4/config_files/master/hzn_channels.json > $PATH_TMP_EPG/hzn_channels.json
+curl -s https://raw.githubusercontent.com/sunsettrack4/config_files/master/hzn_genres.json > $PATH_TMP_EPG/hzn_genres.json
 
 # CONVERT JSON INTO XML: CHANNELS
 printf "\rConverting CHANNEL JSON file into XML format...      "
-perl ch_json2xml.pl 2>warnings.txt > horizon_channels
-sort -u horizon_channels > /tmp/horizon_channels && mv /tmp/horizon_channels horizon_channels
-sed -i 's/></>\n</g;s/<display-name/  &/g;s/<icon src/  &/g' horizon_channels
+perl ch_json2xml.pl 2>$PATH_TMP_EPG/warnings.txt > $PATH_TMP_EPG/unsorted_horizon_channels
+sort -u $PATH_TMP_EPG/unsorted_horizon_channels > $PATH_TMP_EPG/horizon_channels # && mv $PATH_TMP_EPG/horizon_channels $PATH_TMP_EPG/horizon_channels
+sed -i 's/></>\n</g;s/<display-name/  &/g;s/<icon src/  &/g' $PATH_TMP_EPG/horizon_channels
 
 # CREATE CHANNEL ID LIST AS JSON FILE
 printf "\rRetrieving Channel IDs...                            "
-perl cid_json.pl > hzn_cid.json && rm chlist
+perl cid_json.pl > $PATH_TMP_EPG/hzn_cid.json && rm $PATH_TMP_EPG/chlist
 
 # CONVERT JSON INTO XML: EPG
 printf "\rConverting EPG JSON file into XML format...          "
-perl epg_json2xml.pl > horizon_epg 2>epg_warnings.txt && rm /tmp/epg_workfile 2> /dev/null
-
+perl epg_json2xml.pl > $PATH_TMP_EPG/horizon_epg 2>$PATH_TMP_EPG/epg_warnings.txt && rm $PATH_TMP_EPG/epg_workfile 2> /dev/null
 # COMBINE: CHANNELS + EPG
 printf "\rCreating EPG XMLTV file...                           "
-cat horizon_epg >> horizon_channels && mv horizon_channels horizon && rm horizon_epg
-sed -i '1i<?xml version="1.0" encoding="UTF-8" ?>\n<\!-- EPG XMLTV FILE CREATED BY THE EASYEPG PROJECT - (c) 2019-2020 Jan-Luca Neumann -->\n<tv>' horizon
-sed -i "s/<tv>/<\!-- created on $(date) -->\n&\n\n<!-- CHANNEL LIST -->\n/g" horizon
-sed -i '$s/.*/&\n\n<\/tv>/g' horizon
-mv horizon horizon.xml
+cat $PATH_TMP_EPG/horizon_epg >> $PATH_TMP_EPG/horizon_channels && mv $PATH_TMP_EPG/horizon_channels $PATH_TMP_EPG/horizon && rm $PATH_TMP_EPG/horizon_epg
+sed -i '1i<?xml version="1.0" encoding="UTF-8" ?>\n<\!-- EPG XMLTV FILE CREATED BY THE EASYEPG PROJECT - (c) 2019-2020 Jan-Luca Neumann -->\n<tv>' $PATH_TMP_EPG/horizon
+sed -i "s/<tv>/<\!-- created on $(date) -->\n&\n\n<!-- CHANNEL LIST -->\n/g" $PATH_TMP_EPG/horizon
+sed -i '$s/.*/&\n\n<\/tv>/g' $PATH_TMP_EPG/horizon
+mv $PATH_TMP_EPG/horizon $PATH_TMP_EPG/horizon.xml
 
 # VALIDATING XML FILE
 printf "\rValidating EPG XMLTV file..."
-xmllint --noout horizon.xml > errorlog 2>&1
+xmllint --noout $PATH_TMP_EPG/horizon.xml > $PATH_TMP_EPG/errorlog 2>&1
 
-if grep -q "parser error" errorlog
+if grep -q "parser error" $PATH_TMP_EPG/errorlog
 then
 	printf " DONE!\n\n"
-	mv horizon.xml horizon_ERROR.xml
-	echo "[ EPG ERROR ] XMLTV FILE VALIDATION FAILED DUE TO THE FOLLOWING ERRORS:" >> warnings.txt
-	cat errorlog >> warnings.txt
+	mv $PATH_TMP_EPG/horizon.xml $PATH_TMP_EPG/horizon_ERROR.xml
+	echo "[ EPG ERROR ] XMLTV FILE VALIDATION FAILED DUE TO THE FOLLOWING ERRORS:" >> $PATH_TMP_EPG/warnings.txt
+	cat $PATH_TMP_EPG/errorlog >> $PATH_TMP_EPG/warnings.txt
 else
 	printf " DONE!\n\n"
-	rm horizon_ERROR.xml 2> /dev/null
-	rm errorlog 2> /dev/null
-	
-	if ! grep -q "<programme start=" horizon.xml
+	rm $PATH_TMP_EPG/horizon_ERROR.xml 2> /dev/null
+	rm $PATH_TMP_EPG/errorlog 2> /dev/null
+
+	if ! grep -q "<programme start=" $PATH_TMP_EPG/horizon.xml
 	then
-		echo "[ EPG ERROR ] XMLTV FILE DOES NOT CONTAIN ANY PROGRAMME DATA!" >> errorlog
+		echo "[ EPG ERROR ] XMLTV FILE DOES NOT CONTAIN ANY PROGRAMME DATA!" >> $PATH_TMP_EPG/errorlog
 	fi
-	
-	if ! grep "<channel id=" horizon.xml > /tmp/id_check
+
+	if ! grep "<channel id=" $PATH_TMP_EPG/horizon.xml > $PATH_TMP_EPG/id_check
 	then
-		echo "[ EPG ERROR ] XMLTV FILE DOES NOT CONTAIN ANY CHANNEL DATA!" >> errorlog
+		echo "[ EPG ERROR ] XMLTV FILE DOES NOT CONTAIN ANY CHANNEL DATA!" >> $PATH_TMP_EPG/errorlog
 	fi
-	
-	uniq -d /tmp/id_check > /tmp/id_checked
-	if [ -s /tmp/id_checked ]
+
+	uniq -d $PATH_TMP_EPG/id_check > $PATH_TMP_EPG/id_checked
+	if [ -s $PATH_TMP_EPG/id_checked ]
 	then
-		echo "[ EPG ERROR ] XMLTV FILE CONTAINS DUPLICATED CHANNEL IDs!" >> errorlog
-		sed -i 's/.*/[ DUPLICATE ] &/g' /tmp/id_checked && cat /tmp/id_checked >> errorlog
-		rm /tmp/id_check /tmp/id_checked 2> /dev/null
+		echo "[ EPG ERROR ] XMLTV FILE CONTAINS DUPLICATED CHANNEL IDs!" >> $PATH_TMP_EPG/errorlog
+		sed -i 's/.*/[ DUPLICATE ] &/g' $PATH_TMP_EPG/id_checked && cat $PATH_TMP_EPG/id_checked >> $PATH_TMP_EPG/errorlog
+		rm $PATH_TMP_EPG/id_check $PATH_TMP_EPG/id_checked 2> /dev/null
 	else
-		rm /tmp/id_check /tmp/id_checked 2> /dev/null
+		rm $PATH_TMP_EPG/id_check $PATH_TMP_EPG/id_checked 2> /dev/null
 	fi
-	
-	if [ -e errorlog ]
+
+	if [ -e $PATH_TMP_EPG/errorlog ]
 	then
-		mv horizon.xml horizon_ERROR.xml
-		cat errorlog >> warnings.txt
+		mv $PATH_TMP_EPG/horizon.xml $PATH_TMP_EPG/horizon_ERROR.xml
+		cat $PATH_TMP_EPG/errorlog >> $PATH_TMP_EPG/warnings.txt
 	else
-		rm errorlog 2> /dev/null
+		rm $PATH_TMP_EPG/errorlog 2> /dev/null
 	fi
 fi
 
 # SHOW WARNINGS
-cat epg_warnings.txt >> warnings.txt && rm epg_warnings.txt
-sort -u warnings.txt > sorted_warnings.txt && mv sorted_warnings.txt warnings.txt
-sed -i '/^$/d' warnings.txt
+cat $PATH_TMP_EPG/epg_warnings.txt >> $PATH_TMP_EPG/warnings.txt && rm $PATH_TMP_EPG/epg_warnings.txt
+sort -u $PATH_TMP_EPG/warnings.txt > $PATH_TMP_EPG/sorted_warnings.txt && mv $PATH_TMP_EPG/sorted_warnings.txt $PATH_TMP_EPG/warnings.txt
+sed -i '/^$/d' $PATH_TMP_EPG/warnings.txt
 
-if [ -s warnings.txt ]
+if [ -s $PATH_TMP_EPG/warnings.txt ]
 then
 	echo "========== EPG CREATION: WARNING/ERROR LOG ============"
 	echo ""
-	
-	input="warnings.txt"
+
+	input="$PATH_TMP_EPG/warnings.txt"
 	while IFS= read -r var
 	do
 		echo "$var"
 	done < "$input"
-	
+
 	echo ""
 	echo "======================================================="
 	echo ""

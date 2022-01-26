@@ -27,20 +27,24 @@
 
 use strict;
 use warnings;
- 
+
 binmode STDOUT, ":utf8";
 binmode STDERR, ":utf8";
 use utf8;
- 
+
 use JSON;
 use Data::Dumper;
 use Time::Piece;
- 
+
+
+my $PATH_EPG=$ENV{'PATH_TMP_EPG'};
+
+print STDERR "DBG $0 # PATH_EPG : $PATH_EPG # PATH_TMP_EPG : " . $ENV{'PATH_TMP_EPG'};
 # READ JSON INPUT FILE: EPG WORKFILE
 my $json;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "/tmp/epg_workfile" or die;
+    open my $fh, "<", "$PATH_EPG/epg_workfile" or die;
     $json = <$fh>;
     close $fh;
 }
@@ -58,7 +62,7 @@ my $chidlist;
 my $chlist;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "hzn_channels.json" or die;
+    open my $fh, "<", "$PATH_EPG/hzn_channels.json" or die;
     $chlist = <$fh>;
     close $fh;
 }
@@ -67,7 +71,7 @@ my $chlist;
 my $genrelist;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "hzn_genres.json" or die;
+    open my $fh, "<", "$PATH_EPG/hzn_genres.json" or die;
     $genrelist = <$fh>;
     close $fh;
 }
@@ -89,7 +93,7 @@ my $settings;
     $settings = <$fh>;
     close $fh;
 }
- 
+
 # CONVERT JSON TO PERL STRUCTURES
 my $data      = decode_json($json);
 my $chdata    = decode_json($chlist);
@@ -100,7 +104,7 @@ my $setupdata = decode_json($settings);
 
 # DEFINE COUNTRY VERSION
 my $countryVER =  $initdata->{'country'};
-        
+
 # DEFINE LANGUAGE VERSION
 my $languageVER =  $initdata->{'language'};
 
@@ -108,27 +112,27 @@ print "\n<!-- EPG DATA - SOURCE: HORIZON $countryVER -->\n\n";
 
 my @attributes = @{ $data->{'attributes'} };
 foreach my $attributes ( @attributes ) {
-		
+
 	my @item = @{ $attributes->{'listings'} };
 	foreach my $item ( @item ) {
-        
+
         # ####################
         # DEFINE JSON VALUES #
         # ####################
-        
+
         # DEFINE TIMES AND CHANNEL ID
         my $start = $item->{'startTime'};
         my $end   = $item->{'endTime'};
         my $cid   = $item->{'stationId'};
-        
+
         # CONVERT FROM MICROSOFT TIMESTAMP TO XMLTV DATE FORMAT
 		my $startTIME = gmtime($start/1000)->strftime('%Y%m%d%H%M%S') . ' +0000';
 		my $endTIME   = gmtime($end/1000)->strftime('%Y%m%d%H%M%S') . ' +0000';
-		
+
 		# DEFINE PROGRAM STRINGS
 		my $program   = $item->{program};
 		my $title     = $program->{'title'};
-		my $subtitle  = $program->{'secondaryTitle'}; 
+		my $subtitle  = $program->{'secondaryTitle'};
 		my $desc      = $program->{'longDescription'};
 		my $date      = $program->{'year'};
 		my $genre1    = $program->{'categories'}[0]{'title'};
@@ -138,7 +142,7 @@ foreach my $attributes ( @attributes ) {
 		my $series    = $program->{'seriesNumber'};
 		my $episode   = $program->{'seriesEpisodeNumber'};
 		my $star      = $program->{'longDescription'};
-		
+
 		# DEFINE IMAGE PARAMETERS
 		my $landscape    = "HighResLandscape";
 		my $portrait     = "HighResPortrait";
@@ -146,39 +150,39 @@ foreach my $attributes ( @attributes ) {
 		my $landscape_location;
 		my $portrait_location;
 		my $poster_location;
-        
+
         # DEFINE RYTEC CHANNEL ID (language)
 		my $rytec = $chdata->{'channels'}{$countryVER};
-        
+
         # DEFINE CHANNEL ID
         my $cidEXTold  = $chiddata->{'oldid2name'};
         my $cidEXTnew  = $chiddata->{'newid2name'};
         my $cname_old  = $chiddata->{'oldname2id'};
         my @configdata = @{ $chiddata->{'config'} };
-        
+
         # DEFINE EIT GENRES (language)
         my $eit = $genredata->{'categories'}{$countryVER};
-        
+
         # DEFINE SETTINGS
         my $setup_general  = $setupdata->{'settings'};
         my $setup_cid      = $setup_general->{'cid'};
         my $setup_genre    = $setup_general->{'genre'};
         my $setup_category = $setup_general->{'category'};
-        my $setup_episode  = $setup_general->{'episode'};  
-        
+        my $setup_episode  = $setup_general->{'episode'};
+
         # DEFINE SETTINGS VALUES
         my $enabled  = "enabled";
         my $disabled = "disabled";
         my $xmltv_ns = "xmltv_ns";
         my $onscreen = "onscreen";
-		
+
 		# ##################
 		# PRINT XML OUTPUT #
 		# ##################
-		
+
 		# PRINT PROGRAMME STRING ONLY IF CERTAIN VALUES ARE DEFINED
 		if( defined $title and defined $start and defined $end and defined $cid ) {
-			
+
 			foreach my $selected_channel ( @configdata ) {
 				# BEGIN OF PROGRAMME: START / STOP / CHANNEL (condition) (settings)
 				if( $cidEXTnew->{$cid} eq $selected_channel ) {
@@ -207,11 +211,11 @@ foreach my $attributes ( @attributes ) {
 					}
 				}
 			}
-			
+
 			# IMAGE (condition) (loop)
 			if( exists $program->{'images'} ) {
 				my @image     = @{ $program->{'images'} };
-				
+
 				if( @image ) {
 					while( my( $landscape_id, $image ) = each( @image ) ) {		# SEARCH FOR LANDSCAPE IMAGE
 						if( $image->{'assetType'} eq $landscape ) {
@@ -233,7 +237,7 @@ foreach my $attributes ( @attributes ) {
 					}
 					if( defined $portrait_location) {
 						print "  <icon src=\"" . $program->{'images'}[$portrait_location]{'url'} . "\" />\n";
-					}  
+					}
 					   elsif( defined $poster_location) {
 						print "  <icon src=\"" . $program->{'images'}[$poster_location]{'url'} . "\" />\n";
 					}
@@ -242,13 +246,13 @@ foreach my $attributes ( @attributes ) {
 					}
 				}
 			}
-			
+
 			# TITLE (language)
 			$title =~ s/\&/\&amp;/g;
 			$title =~ s/<[^>]*>//g;
 			$title =~ s/[<>]//g;
 			print "  <title lang=\"$languageVER\">$title</title>\n";
-			
+
 			# SUBTITLE (condition) (language)
 			if( defined $subtitle ) {
 				$subtitle =~ s/\&/\&amp;/g;
@@ -256,7 +260,7 @@ foreach my $attributes ( @attributes ) {
 				$subtitle =~ s/[<>]//g;
 				print "  <sub-title lang=\"$languageVER\">$subtitle</sub-title>\n";
 			}
-			
+
 			# DESCRIPTION (condition) (language)
 			if( defined $desc ) {
 				$desc =~ s/\&/\&amp;/g;					# REQUIRED TO READ XML FILE CORRECTLY
@@ -266,11 +270,11 @@ foreach my $attributes ( @attributes ) {
 				$desc =~ s/ IMDb rating:.*\/10.//g;     # REMOVE IMDB STRING FROM GERMAN DESCRIPTION
 				print "  <desc lang=\"$languageVER\">$desc</desc>\n";
 			}
-			
+
 			# CREDITS (condition)
 			if( exists $program->{'directors'} ) {
 				my @director  = @{ $program->{'directors'} };
-				
+
 				if ( @director ) {
 					print "  <credits>\n";
 					foreach my $PRINTdirector ( @director ) {
@@ -279,7 +283,7 @@ foreach my $attributes ( @attributes ) {
 					}
 					if( exists $program->{'cast'} ) {
 						my @cast      = @{ $program->{'cast'} };
-						
+
 						if ( @cast ) {
 							foreach my $PRINTcast ( @cast ) {
 								$PRINTcast =~ s/\&/\&amp;/g;
@@ -291,7 +295,7 @@ foreach my $attributes ( @attributes ) {
 				}
 			} elsif ( exists $program->{'cast'} ) {
 				my @cast      = @{ $program->{'cast'} };
-				
+
 				if( @cast ) {
 					print "  <credits>\n";
 					foreach my $PRINTcast ( @cast ) {
@@ -301,12 +305,12 @@ foreach my $attributes ( @attributes ) {
 					print "  </credits>\n";
 				}
 			}
-			
+
 			# DATE (condition)
 			if( defined $date ) {
 				print "  <date>$date</date>\n";
 			}
-			
+
 			# GENRE FIX
 			if( defined $genre1 ) {
 				$genre1 =~ s/&/&amp;/g;
@@ -317,7 +321,7 @@ foreach my $attributes ( @attributes ) {
 			if( defined $genre3 ) {
 				$genre3 =~ s/&/&amp;/g;
 			}
-			
+
 			# CATEGORIES (USE MOST DETAILLED CATEGORY) (condition) (language) (settings)
 			if( $setup_category eq $disabled ) {
 				if ( defined $genre2 ) {
@@ -344,7 +348,7 @@ foreach my $attributes ( @attributes ) {
 					}
 				}
 			}
-			
+
 			# CATEGORIES (PRINT ALL CATEGORIES) (condition) (language) (settings)
 			if( $setup_category eq $enabled ) {
 				if ( defined $genre1 ) {
@@ -384,7 +388,7 @@ foreach my $attributes ( @attributes ) {
 					}
 				}
 			}
-			
+
 			# SEASON/EPISODE (XMLTV_NS) (condition) (settings)
 			if( $setup_episode eq $xmltv_ns ) {
 				if( defined $series ) {
@@ -410,7 +414,7 @@ foreach my $attributes ( @attributes ) {
 					print "  <episode-num system=\"xmltv_ns\">0 . $XMLepisode . </episode-num>\n";
 				}
 			}
-			
+
 			# SEASON/EPISODE (ONSCREEN) (condition) (settings)
 			if( $setup_episode eq $onscreen ) {
 				if( defined $series ) {
@@ -433,27 +437,27 @@ foreach my $attributes ( @attributes ) {
 					print "  <episode-num system=\"onscreen\">E$episode</episode-num>\n";
 				}
 			}
-			
+
 			# AGE RATING (condition)
 			if( defined $age) {
 				print "  <rating>\n    <value>$age</value>\n  </rating>\n";
 			}
-			
+
 			# STAR RATING (condition)
 			if( defined $star) {
 				if ($star =~ m/IMDb Rating:/) {
 					$star =~ s/(.*)(IMDb Rating: )(.*)\/10.(.*)/$3\/10/g;
 					$star =~ s/(.*) \/10/$1\/10/g;
 					print "  <star-rating system=\"IMDb\">\n    <value>" . $star ."</value>\n  </star-rating>\n";
-				} else { 
+				} else {
 					if ($star =~ m/IMDb rating:/) {
 					$star =~ s/(.*)(IMDb rating: )(.*)\/10.(.*)/$3\/10/g;
 					$star =~ s/(.*) \/10/$1\/10/g;
 					print "  <star-rating system=\"IMDb\">\n    <value>" . $star ."</value>\n  </star-rating>\n";
-					}       
+					}
 				}
 			}
-			
+
 			# END OF PROGRAMME
 			print "</programme>\n";
 		}
