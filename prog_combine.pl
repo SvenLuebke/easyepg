@@ -30,7 +30,7 @@ use utf8;
 my $xml;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "xml/fileNAME" or die;
+    open my $fh, "<", "$ARGV[0]" or die;
     $xml = <$fh>;
     close $fh;
 }
@@ -39,7 +39,7 @@ my $xml;
 my $json;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "combine/channelsFILE" or die;
+    open my $fh, "<", "$ARGV[1]" or die;
     $json = <$fh>;
     close $fh;
 }
@@ -48,7 +48,7 @@ my $json;
 my $settings;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "combine/settingsFILE" or die;
+    open my $fh, "<", "$ARGV[2]" or die;
     $settings = <$fh>;
     close $fh;
 }
@@ -125,36 +125,36 @@ my $date_15 = $time_15->strftime('%Y%m%d');
 
 foreach my $configdata ( @configdata ) {
 	foreach my $programme ( @programme ) {
-			
+
 		# ###########################
 		# DEFINE + PRINT XML VALUES #
 		# ###########################
-				
+
 		# PROGRAMME STRING
 		my $start       = $programme->{start};
 		my $stop        = $programme->{stop};
 		my $ch          = $programme->{channel};
-		
+
 		# CONDITION: PRINT SELECTED CHANNELS ONLY
 		if( $ch eq $configdata ) {
-			
+
 			#
 			# DAY 1
 			#
-			
+
 			if( $days eq "1" or $days eq "2" or $days eq "3" or $days eq "4" or $days eq "5" or $days eq "6" or $days eq "7" or $days eq "8" or $days eq "9" or $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-				
+
 				if( defined $start and $start =~ m/$date1/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -171,7 +171,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -182,7 +182,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -193,12 +193,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -206,7 +206,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -214,22 +214,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -246,7 +246,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -255,7 +255,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -266,7 +266,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -277,29 +277,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 2
 			#
-			
+
 			if( $days eq "2" or $days eq "3" or $days eq "4" or $days eq "5" or $days eq "6" or $days eq "7" or $days eq "8" or $days eq "9" or $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date2/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -316,7 +316,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -327,7 +327,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -338,12 +338,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -351,7 +351,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -359,22 +359,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -391,7 +391,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -400,7 +400,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -411,7 +411,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -422,29 +422,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 3
 			#
-			
+
 			if( $days eq "3" or $days eq "4" or $days eq "5" or $days eq "6" or $days eq "7" or $days eq "8" or $days eq "9" or $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date3/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -461,7 +461,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -472,7 +472,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -483,12 +483,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -496,7 +496,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -504,22 +504,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -536,7 +536,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -545,7 +545,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -556,7 +556,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -567,29 +567,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 4
 			#
-			
+
 			if( $days eq "4" or $days eq "5" or $days eq "6" or $days eq "7" or $days eq "8" or $days eq "9" or $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date4/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -606,7 +606,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -617,7 +617,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -628,12 +628,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -641,7 +641,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -649,22 +649,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -681,7 +681,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -690,7 +690,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -701,7 +701,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -712,29 +712,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 5
 			#
-			
+
 			if( $days eq "5" or $days eq "6" or $days eq "7" or $days eq "8" or $days eq "9" or $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date5/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -751,7 +751,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -762,7 +762,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -773,12 +773,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -786,7 +786,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -794,22 +794,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -826,7 +826,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -835,7 +835,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -846,7 +846,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -857,29 +857,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 6
 			#
-			
+
 			if( $days eq "6" or $days eq "7" or $days eq "8" or $days eq "9" or $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date6/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -896,7 +896,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -907,7 +907,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -918,12 +918,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -931,7 +931,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -939,22 +939,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -971,7 +971,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -980,7 +980,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -991,7 +991,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -1002,29 +1002,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 7
 			#
-			
+
 			if( $days eq "7" or $days eq "8" or $days eq "9" or $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date7/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -1041,7 +1041,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -1052,7 +1052,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -1063,12 +1063,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -1076,7 +1076,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -1084,22 +1084,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -1116,7 +1116,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -1125,7 +1125,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -1136,7 +1136,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -1147,29 +1147,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 8
 			#
-			
+
 			if( $days eq "8" or $days eq "9" or $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date8/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -1186,7 +1186,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -1197,7 +1197,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -1208,12 +1208,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -1221,7 +1221,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -1229,22 +1229,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -1261,7 +1261,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -1270,7 +1270,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -1281,7 +1281,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -1292,29 +1292,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 9
 			#
-			
+
 			if( $days eq "9" or $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date9/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -1331,7 +1331,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -1342,7 +1342,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -1353,12 +1353,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -1366,7 +1366,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -1374,22 +1374,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -1406,7 +1406,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -1415,7 +1415,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -1426,7 +1426,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -1437,29 +1437,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
-			}	
-		
+			}
+
 			#
 			# DAY 10
 			#
-			
+
 			if( $days eq "10" or $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date_10/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -1476,7 +1476,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -1487,7 +1487,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -1498,12 +1498,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -1511,7 +1511,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -1519,22 +1519,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -1551,7 +1551,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -1560,7 +1560,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -1571,7 +1571,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -1582,29 +1582,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 11
 			#
-			
+
 			if( $days eq "11" or $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date_11/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -1621,7 +1621,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -1632,7 +1632,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -1643,12 +1643,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -1656,7 +1656,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -1664,22 +1664,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -1696,7 +1696,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -1705,7 +1705,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -1716,7 +1716,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -1727,29 +1727,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-			
+
 			#
 			# DAY 12
 			#
-			
+
 			if( $days eq "12" or $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date_12/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -1766,7 +1766,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -1777,7 +1777,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -1788,12 +1788,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -1801,7 +1801,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -1809,22 +1809,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -1841,7 +1841,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -1850,7 +1850,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -1861,7 +1861,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -1872,29 +1872,29 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 13
 			#
-			
+
 			if( $days eq "13" ) {
-			
+
 				if( defined $start and $start =~ m/$date_13/ ) {
-				
+
 					# START + STOP + CHANNEL
 					print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-					
+
 					# ICON
 					my $icon        = $programme->{icon}->{src};
 					if( defined $icon ) {
 						print "  <icon src=\"" . $icon . "\" />\n";
 					}
-					
+
 					# TITLE
 					my $title       = $programme->{title}->{_content};
 					my $title_lang  = $programme->{title}->{lang};
@@ -1911,7 +1911,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <title>No program information available</title>\n";
 						}
 					}
-					
+
 					# SUB-TITLE
 					my $subtitle    = $programme->{'sub-title'}->{_content};
 					my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -1922,7 +1922,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <sub-title>" . $subtitle . "</sub-title>\n";
 						}
 					}
-					
+
 					# DESC
 					my $desc        = $programme->{desc}->{_content};
 					my $desc_lang   = $programme->{desc}->{lang};
@@ -1933,12 +1933,12 @@ foreach my $configdata ( @configdata ) {
 							print "  <desc>" . $desc . "</desc>\n";
 						}
 					}
-					
+
 					# CREDITS
 					my $credits     = $programme->{credits};
 					if( defined $credits ) {
 						print "  <credits>\n";
-						
+
 						# DIRECTOR
 						if( exists $credits->{director}) {
 							my @director       = @{ $credits->{director} };
@@ -1946,7 +1946,7 @@ foreach my $configdata ( @configdata ) {
 								print "    <director>" . $director . "</director>\n";
 							}
 						}
-						
+
 						# ACTOR
 						if( exists $credits->{actor}) {
 							my @actor       = @{ $credits->{actor} };
@@ -1954,22 +1954,22 @@ foreach my $configdata ( @configdata ) {
 								print "    <actor>" . $actor . "</actor>\n";
 							}
 						}
-						
+
 						print "  </credits>\n";
 					}
-					
+
 					# DATE
 					my $date        = $programme->{date};
 					if( defined $date ) {
 						print "  <date>" . $date . "</date>\n";
 					}
-					
+
 					# COUNTRY
 					my $country     = $programme->{country};
 					if( defined $country ) {
 						print "  <country>" . $country . "</country>\n";
 					}
-					
+
 					# CATEGORY
 					my $category    = $programme->{category};
 					if( defined $category ) {
@@ -1986,7 +1986,7 @@ foreach my $configdata ( @configdata ) {
 							}
 						}
 					}
-					
+
 					# EPISODE
 					my $episode     = $programme->{'episode-num'}->{_content};
 					my $episystem   = $programme->{'episode-num'}->{system};
@@ -1995,7 +1995,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 						}
 					}
-					
+
 					# AGE RATING
 					my $agerating   = $programme->{rating}->{value};
 					my $agesystem   = $programme->{rating}->{system};
@@ -2006,7 +2006,7 @@ foreach my $configdata ( @configdata ) {
 							print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 						}
 					}
-					
+
 					# STAR RATING
 					my $starrating  = $programme->{'star-rating'}->{value};
 					my $starsystem  = $programme->{'star-rating'}->{system};
@@ -2017,27 +2017,27 @@ foreach my $configdata ( @configdata ) {
 							print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 						}
 					}
-					
+
 					# END OF PROGRAMME
 					print "</programme>\n";
 				}
 			}
-		
+
 			#
 			# DAY 14 (ALL DAYS)
 			#
-			
+
 			if( $days eq "14" ) {
-			
+
 				# START + STOP + CHANNEL
 				print "<programme start=\"" . $start . "\" stop=\"" . $stop . "\" channel=\"" . $ch . "\">\n";
-				
+
 				# ICON
 				my $icon        = $programme->{icon}->{src};
 				if( defined $icon ) {
 					print "  <icon src=\"" . $icon . "\" />\n";
 				}
-				
+
 				# TITLE
 				my $title       = $programme->{title}->{_content};
 				my $title_lang  = $programme->{title}->{lang};
@@ -2054,7 +2054,7 @@ foreach my $configdata ( @configdata ) {
 						print "  <title>No program information available</title>\n";
 					}
 				}
-				
+
 				# SUB-TITLE
 				my $subtitle    = $programme->{'sub-title'}->{_content};
 				my $sub_lang    = $programme->{'sub-title'}->{lang};
@@ -2065,7 +2065,7 @@ foreach my $configdata ( @configdata ) {
 						print "  <sub-title>" . $subtitle . "</sub-title>\n";
 					}
 				}
-				
+
 				# DESC
 				my $desc        = $programme->{desc}->{_content};
 				my $desc_lang   = $programme->{desc}->{lang};
@@ -2076,12 +2076,12 @@ foreach my $configdata ( @configdata ) {
 						print "  <desc>" . $desc . "</desc>\n";
 					}
 				}
-				
+
 				# CREDITS
 				my $credits     = $programme->{credits};
 				if( defined $credits ) {
 					print "  <credits>\n";
-					
+
 					# DIRECTOR
 					if( exists $credits->{director}) {
 						my @director       = @{ $credits->{director} };
@@ -2089,7 +2089,7 @@ foreach my $configdata ( @configdata ) {
 							print "    <director>" . $director . "</director>\n";
 						}
 					}
-					
+
 					# ACTOR
 					if( exists $credits->{actor}) {
 						my @actor       = @{ $credits->{actor} };
@@ -2097,22 +2097,22 @@ foreach my $configdata ( @configdata ) {
 							print "    <actor>" . $actor . "</actor>\n";
 						}
 					}
-					
+
 					print "  </credits>\n";
 				}
-				
+
 				# DATE
 				my $date        = $programme->{date};
 				if( defined $date ) {
 					print "  <date>" . $date . "</date>\n";
 				}
-				
+
 				# COUNTRY
 				my $country     = $programme->{country};
 				if( defined $country ) {
 					print "  <country>" . $country . "</country>\n";
 				}
-				
+
 				# CATEGORY
 				my $category    = $programme->{category};
 				if( defined $category ) {
@@ -2129,7 +2129,7 @@ foreach my $configdata ( @configdata ) {
 						}
 					}
 				}
-				
+
 				# EPISODE
 				my $episode     = $programme->{'episode-num'}->{_content};
 				my $episystem   = $programme->{'episode-num'}->{system};
@@ -2138,7 +2138,7 @@ foreach my $configdata ( @configdata ) {
 						print "  <episode-num system=\"" . $episystem . "\">" . $episode . "</episode-num>\n";
 					}
 				}
-				
+
 				# AGE RATING
 				my $agerating   = $programme->{rating}->{value};
 				my $agesystem   = $programme->{rating}->{system};
@@ -2149,7 +2149,7 @@ foreach my $configdata ( @configdata ) {
 						print "  <rating>\n    <value>" . $agerating . "</value>\n  </rating>\n";
 					}
 				}
-				
+
 				# STAR RATING
 				my $starrating  = $programme->{'star-rating'}->{value};
 				my $starsystem  = $programme->{'star-rating'}->{system};
@@ -2160,11 +2160,11 @@ foreach my $configdata ( @configdata ) {
 						print "  <star-rating>\n    <value>" . $starrating . "</value>\n  </star-rating>\n";
 					}
 				}
-				
+
 				# END OF PROGRAMME
 				print "</programme>\n";
 			}
-		
+
 		}
 	}
 }

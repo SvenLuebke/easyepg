@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #      Copyright (C) 2019-2020 Jan-Luca Neumann
 #      https://github.com/sunsettrack4/easyepg
@@ -29,7 +29,7 @@ echo " ==THE=======================================  "
 echo "   ##### ##### ##### #   # ##### ##### #####   "
 echo "   #     #   # #     #   # #     #   # #       "
 echo "  ##### ##### ##### #####  ##### ##### #  ##   "
-echo "  #     #   #     #   #    #     #     #   #   " 
+echo "  #     #   #     #   #    #     #     #   #   "
 echo " ##### #   # #####   #     ##### #     #####   "
 echo " ===================================PROJECT==  "
 echo "                                               "
@@ -711,7 +711,7 @@ ls -l ext/ >>  /tmp/providerlist
 if grep -q '^d' /tmp/providerlist 2> /dev/null
 then
 	dialog --backtitle "[M1W00] EASYEPG SIMPLE XMLTV GRABBER" --title "MAIN MENU" --infobox "Please press any button to enter the main menu.\n\nThe script will proceed in 5 seconds." 7 50
-			
+
 	if read -t 5 -n1
 	then
 		echo "M" > /tmp/value
@@ -751,7 +751,7 @@ do
 	then
 		echo '	2 "OPEN GRABBER SETTINGS" \' >> /tmp/menu
 	fi
-	
+
 	# M1300 CREATE SINGLE-/MULTI-SOURCE XML FILE
 	ls -l hzn/ >  /tmp/providerlist
 	ls -l ztt/ >>  /tmp/providerlist
@@ -771,7 +771,7 @@ do
 			echo '	3 "MODIFY XML FILES" \' >> /tmp/menu
 		fi
 	fi
-	
+
 	# M1400 CONTINUE IN GRABBER MODE
 	ls -l hzn/ >  /tmp/providerlist
 	ls -l ztt/ >> /tmp/providerlist
@@ -788,10 +788,10 @@ do
 	then
 		echo '	4 "CONTINUE IN GRABBER MODE" \' >> /tmp/menu
 	fi
-	
+
 	# M1500 UPDATE
 	echo '	5 "UPDATE THIS SCRIPT" \' >> /tmp/menu
-	
+
 	# M1600 BACKUP/RESTORE
 	ls -l hzn/ >  /tmp/providerlist
 	ls -l ztt/ >> /tmp/providerlist
@@ -811,10 +811,10 @@ do
 	then
 		echo '	6 "BACKUP / RESTORE" \' >> /tmp/menu
 	fi
-	
+
 	# M1900 ABOUT
 	echo '	9 "ABOUT EASYEPG" \' >> /tmp/menu
-	
+
 	echo "2> /tmp/value" >> /tmp/menu
 
 	bash /tmp/menu
@@ -832,25 +832,25 @@ do
 
 		# M1110 HORIZON
 		echo '	001 "HORIZON" \' >> /tmp/menu
-		
+
 		# M1120 ZATTOO
 		echo '	002 "ZATTOO" \' >> /tmp/menu
-		
+
 		# M1130 SWISSCOM
 		echo '	003 "SWISSCOM" \' >> /tmp/menu
-		
+
 		# M1140 TVPLAYER
 		echo '	004 "TVPLAYER" \' >> /tmp/menu
-		
+
 		# M1150 TELEKOM
 		echo '	005 "TELEKOM" \' >> /tmp/menu
-		
+
 		# M1160 RADIOTIMES
 		echo '	006 "RADIOTIMES" \' >> /tmp/menu
-		
+
 		# M1170 WAIPU.TV
 		echo '	007 "WAIPU.TV" \' >> /tmp/menu
-		
+
 		# M1180 TV-SPIELFILM
 		echo '	008 "TV-SPIELFILM" \' >> /tmp/menu
 
@@ -867,8 +867,8 @@ do
 
 		bash /tmp/menu
 		input="$(cat /tmp/value)"
-		
-		
+
+
 		# ###############
 		# M1110 HORIZON #
 		# ###############
@@ -876,68 +876,68 @@ do
 		if grep -q "001" /tmp/value
 		then
 			# M1110 MENU OVERLAY
-			echo 'dialog --backtitle "[M1110] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > HORIZON" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1110] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > HORIZON" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M1111 GERMANY
 			if [ ! -d hzn/de ]
 			then
 				echo '	1 "[DE] Unitymedia Germany" \' >> /tmp/menu
 			fi
-			
+
 			# M1112 AUSTRIA
 			if [ ! -d hzn/at ]
 			then
 				echo '	2 "[AT] Magenta T" \' >> /tmp/menu
 			fi
-			
+
 			# M1113 SWITZERLAND
 			if [ ! -d hzn/ch ]
 			then
 				echo '	3 "[CH] UPC Switzerland" \' >> /tmp/menu
 			fi
-			
+
 			# M1114 NETHERLANDS
 			if [ ! -d hzn/nl ]
 			then
 				echo '	4 "[NL] Ziggo Netherlands" \' >> /tmp/menu
 			fi
-			
+
 			# M1115 POLAND
 			if [ ! -d hzn/pl ]
 			then
 				echo '	5 "[PL] Horizon Poland" \' >> /tmp/menu
 			fi
-			
+
 			# M1116 IRELAND
 			if [ ! -d hzn/ie ]
 			then
 				echo '	6 "[IE] Virgin Media Ireland" \' >> /tmp/menu
 			fi
-			
+
 			# M1117 SLOVAKIA
 			if [ ! -d hzn/sk ]
 			then
 				echo '	7 "[SK] Horizon Slovakia" \' >> /tmp/menu
 			fi
-			
+
 			# M1118 CZECH REPUBLIC
 			if [ ! -d hzn/cz ]
 			then
 				echo '	8 "[CZ] Horizon Czech Republic" \' >> /tmp/menu
 			fi
-			
+
 			# M1119 HUNGARY
 			if [ ! -d hzn/hu ]
 			then
 				echo '	9 "[HU] Horizon Hungary" \' >> /tmp/menu
 			fi
-			
+
 			# M111R ROMANIA
 			if [ ! -d hzn/ro ]
 			then
 				echo '	0 "[RO] Horizon Romania" \' >> /tmp/menu
 			fi
-			
+
 			# M111E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -950,12 +950,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-		
-		
+
+
 			# ##################
 			# M1111 HORIZON DE #
 			# ##################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir hzn/de
@@ -971,19 +971,19 @@ do
 				sed 's/XX/DE/g;s/YYY/deu/g' hzn/url_printer.pl > hzn/de/url_printer.pl
 				cd hzn/de && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/de/channels.json ]
 				then
 					rm -rf hzn/de
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1112 HORIZON AT #
 			# ##################
-			
+
 			elif grep -q "2" /tmp/value
 			then
 				mkdir hzn/at
@@ -999,19 +999,19 @@ do
 				sed 's/XX/AT/g;s/YYY/deu/g;s/legacy-dynamic.oesp.horizon.tv/prod.oesp.magentatv.at/g' hzn/url_printer.pl > hzn/at/url_printer.pl
 				cd hzn/at && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/at/channels.json ]
 				then
 					rm -rf hzn/at
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1113 HORIZON CH #
 			# ##################
-			
+
 			elif grep -q "3" /tmp/value
 			then
 				mkdir hzn/ch
@@ -1027,19 +1027,19 @@ do
 				sed 's/XX/CH/g;s/YYY/deu/g;s/legacy-dynamic.oesp.horizon.tv/obo-prod.oesp.upctv.ch/g' hzn/url_printer.pl > hzn/ch/url_printer.pl
 				cd hzn/ch && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/ch/channels.json ]
 				then
 					rm -rf hzn/ch
 				fi
-				
+
 				echo "M" > /tmp/value
-				
-			
+
+
 			# ##################
 			# M1114 HORIZON NL #
 			# ##################
-			
+
 			elif grep -q "4" /tmp/value
 			then
 				mkdir hzn/nl
@@ -1055,19 +1055,19 @@ do
 				sed 's/XX/NL/g;s/YYY/nld/g;s/legacy-dynamic.oesp.horizon.tv/obo-prod.oesp.ziggogo.tv/g' hzn/url_printer.pl > hzn/nl/url_printer.pl
 				cd hzn/nl && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/nl/channels.json ]
 				then
 					rm -rf hzn/nl
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1115 HORIZON PL #
 			# ##################
-			
+
 			elif grep -q "5" /tmp/value
 			then
 				mkdir hzn/pl
@@ -1083,19 +1083,19 @@ do
 				sed 's/XX/PL/g;s/YYY/pol/g;s/legacy-dynamic.oesp.horizon.tv/prod.oesp.upctv.pl/g' hzn/url_printer.pl > hzn/pl/url_printer.pl
 				cd hzn/pl && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/pl/channels.json ]
 				then
 					rm -rf hzn/pl
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1116 HORIZON IE #
 			# ##################
-			
+
 			elif grep -q "6" /tmp/value
 			then
 				mkdir hzn/ie
@@ -1111,19 +1111,19 @@ do
 				sed 's/XX/IE/g;s/YYY/eng/g;s/legacy-dynamic.oesp.horizon.tv/prod.oesp.virginmediatv.ie/g' hzn/url_printer.pl > hzn/ie/url_printer.pl
 				cd hzn/ie && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/ie/channels.json ]
 				then
 					rm -rf hzn/ie
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1117 HORIZON SK #
 			# ##################
-			
+
 			elif grep -q "7" /tmp/value
 			then
 				mkdir hzn/sk
@@ -1139,19 +1139,19 @@ do
 				sed 's/XX/SK/g;s/YYY/slk/g' hzn/url_printer.pl > hzn/sk/url_printer.pl
 				cd hzn/sk && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/sk/channels.json ]
 				then
 					rm -rf hzn/sk
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1118 HORIZON CZ #
 			# ##################
-			
+
 			elif grep -q "8" /tmp/value
 			then
 				mkdir hzn/cz
@@ -1167,19 +1167,19 @@ do
 				sed 's/XX/CZ/g;s/YYY/ces/g' hzn/url_printer.pl > hzn/cz/url_printer.pl
 				cd hzn/cz && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/cz/channels.json ]
 				then
 					rm -rf hzn/cz
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1119 HORIZON HU #
 			# ##################
-			
+
 			elif grep -q "9" /tmp/value
 			then
 				mkdir hzn/hu
@@ -1195,19 +1195,19 @@ do
 				sed 's/XX/HU/g;s/YYY/hun/g' hzn/url_printer.pl > hzn/hu/url_printer.pl
 				cd hzn/hu && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/hu/channels.json ]
 				then
 					rm -rf hzn/hu
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M111R HORIZON RO #
 			# ##################
-			
+
 			elif grep -q "0" /tmp/value
 			then
 				mkdir hzn/ro
@@ -1223,24 +1223,24 @@ do
 				sed 's/XX/RO/g;s/YYY/ron/g' hzn/url_printer.pl > hzn/ro/url_printer.pl
 				cd hzn/ro && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/ro/channels.json ]
 				then
 					rm -rf hzn/ro
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M111X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# ###############
 		# M1120 ZATTOO  #
 		# ###############
@@ -1248,20 +1248,20 @@ do
 		elif grep -q "002" /tmp/value
 		then
 			# M1120 MENU OVERLAY
-			echo 'dialog --backtitle "[M1120] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > ZATTOO" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1120] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > ZATTOO" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M1121 GERMANY
 			if [ ! -d ztt/de ]
 			then
 				echo '	1 "[DE] Zattoo Germany" \' >> /tmp/menu
 			fi
-			
+
 			# M1122 SWITZERLAND
 			if [ ! -d ztt/ch ]
 			then
 				echo '	2 "[CH] Zattoo Switzerland" \' >> /tmp/menu
 			fi
-			
+
 			# M112E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -1274,12 +1274,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-		
+
+
 			# ##################
 			# M1121 ZATTOO DE  #
 			# ##################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir ztt/de
@@ -1296,19 +1296,19 @@ do
 				cp ztt/compare_menu.pl ztt/de/
 				cd ztt/de && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ztt/de/channels.json ]
 				then
 					rm -rf ztt/de
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1122 ZATTOO CH  #
 			# ##################
-			
+
 			elif grep -q "2" /tmp/value
 			then
 				mkdir ztt/ch
@@ -1325,24 +1325,24 @@ do
 				cp ztt/compare_menu.pl ztt/ch/
 				cd ztt/ch && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ztt/ch/channels.json ]
 				then
 					rm -rf ztt/ch
 				fi
-				
+
 				echo "M" > /tmp/value
-				
-			
+
+
 			# ############
 			# M112X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# #################
 		# M1130 SWISSCOM  #
 		# #################
@@ -1350,14 +1350,14 @@ do
 		elif grep -q "003" /tmp/value
 		then
 			# M1130 MENU OVERLAY
-			echo 'dialog --backtitle "[M1130] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > SWISSCOM" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1130] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > SWISSCOM" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M1131 SWITZERLAND
 			if [ ! -d swc/ch ]
 			then
 				echo '	1 "[CH] SWISSCOM" \' >> /tmp/menu
 			fi
-			
+
 			# M113E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -1370,12 +1370,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ####################
 			# M1131 SWISSCOM CH  #
 			# ####################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir swc/ch
@@ -1391,23 +1391,23 @@ do
 				cp swc/url_printer.pl swc/ch/
 				cd swc/ch && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e swc/ch/channels.json ]
 				then
 					rm -rf swc/ch
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M113X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-			
+
 
 		# #################
 		# M1140 TVPLAYER  #
@@ -1416,14 +1416,14 @@ do
 		elif grep -q "004"  /tmp/value
 		then
 			# M1140 MENU OVERLAY
-			echo 'dialog --backtitle "[M1140] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > TVPLAYER" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1140] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > TVPLAYER" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M1141 UK
 			if [ ! -d tvp/uk ]
 			then
 				echo '	1 "[UK] TVPLAYER" \' >> /tmp/menu
 			fi
-			
+
 			# M114E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -1436,12 +1436,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-				
-				
+
+
 			# ####################
 			# M1141 TVPLAYER UK  #
 			# ####################
-				
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir tvp/uk
@@ -1456,24 +1456,24 @@ do
 				cp tvp/compare_menu.pl tvp/uk/
 				cd tvp/uk && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e tvp/uk/channels.json ]
 				then
 					rm -rf tvp/uk
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M114X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# #################
 		# M1150 TELEKOM   #
 		# #################
@@ -1481,14 +1481,14 @@ do
 		elif grep -q "005"  /tmp/value
 		then
 			# M1150 MENU OVERLAY
-			echo 'dialog --backtitle "[M1150] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > TELEKOM" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1150] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > TELEKOM" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M1151 DE
 			if [ ! -d tkm/de ]
 			then
 				echo '	1 "[DE] MAGENTA TV" \' >> /tmp/menu
 			fi
-			
+
 			# M115E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -1501,12 +1501,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-				
-				
+
+
 			# #####################
 			# M1151 MAGENTA TV DE #
 			# #####################
-				
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir tkm/de
@@ -1524,24 +1524,24 @@ do
 				cp tkm/proxy.sh tkm/de/
 				cd tkm/de && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e tkm/de/channels.json ]
 				then
 					rm -rf tkm/de
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M115X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-			
-			
+
+
 		# ##################
 		# M1160 RADIOTIMES #
 		# ##################
@@ -1549,14 +1549,14 @@ do
 		elif grep -q "006"  /tmp/value
 		then
 			# M1160 MENU OVERLAY
-			echo 'dialog --backtitle "[M1160] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > RADIOTIMES" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1160] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > RADIOTIMES" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M1161 DE
 			if [ ! -d rdt/uk ]
 			then
 				echo '	1 "[UK] RADIOTIMES" \' >> /tmp/menu
 			fi
-			
+
 			# M116E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -1569,12 +1569,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-				
-				
+
+
 			# #####################
 			# M1161 RADIOTIMES UK #
 			# #####################
-				
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir rdt/uk
@@ -1591,24 +1591,24 @@ do
 				cp rdt/url_printer.pl rdt/uk/
 				cd rdt/uk && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e rdt/uk/channels.json ]
 				then
 					rm -rf rdt/uk
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M116X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# ##################
 		# M1170 WAIPU.TV   #
 		# ##################
@@ -1616,14 +1616,14 @@ do
 		elif grep -q "007"  /tmp/value
 		then
 			# M1170 MENU OVERLAY
-			echo 'dialog --backtitle "[M1170] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > WAIPU.TV" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1170] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > WAIPU.TV" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M1171 DE
 			if [ ! -d wpu/de ]
 			then
 				echo '	1 "[DE] WAIPU.TV" \' >> /tmp/menu
 			fi
-			
+
 			# M117E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -1636,12 +1636,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-				
-				
+
+
 			# #####################
 			# M1171 WAIPU.TV DE   #
 			# #####################
-				
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir wpu/de
@@ -1656,24 +1656,24 @@ do
 				cp wpu/compare_menu.pl wpu/de/
 				cd wpu/de && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e wpu/de/channels.json ]
 				then
 					rm -rf wpu/de
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M117X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# ####################
 		# M1180 TV-SPIELFILM #
 		# ####################
@@ -1681,14 +1681,14 @@ do
 		elif grep -q "008"  /tmp/value
 		then
 			# M1180 MENU OVERLAY
-			echo 'dialog --backtitle "[M1150] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > TV-SPIELFILM" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1150] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > TV-SPIELFILM" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M1181 DE
 			if [ ! -d tvs/de ]
 			then
 				echo '	1 "[DE] TV-SPIELFILM" \' >> /tmp/menu
 			fi
-			
+
 			# M118E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -1701,12 +1701,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-				
-				
+
+
 			# #######################
 			# M1181 TV-SPIELFILM DE #
 			# #######################
-				
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir tvs/de
@@ -1722,23 +1722,23 @@ do
 				cp tvs/url_printer.pl tvs/de/
 				cd tvs/de && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e tvs/de/channels.json ]
 				then
 					rm -rf tvs/de
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M118X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-			
+
 
 		# #################
 		# M1190 VODAFONE  #
@@ -1747,14 +1747,14 @@ do
 		elif grep -q "009"  /tmp/value
 		then
 			# M1180 MENU OVERLAY
-			echo 'dialog --backtitle "[M1150] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > VODAFONE" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1150] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > VODAFONE" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M1191 DE
 			if [ ! -d vdf/de ]
 			then
 				echo '	1 "[DE] VODAFONE" \' >> /tmp/menu
 			fi
-			
+
 			# M119E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -1767,12 +1767,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-				
-				
+
+
 			# #######################
 			# M1191 VODAFONE DE     #
 			# #######################
-				
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir vdf/de
@@ -1789,28 +1789,28 @@ do
 				cp vdf/url_printer.pl vdf/de/
 				cd vdf/de && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e vdf/de/channels.json ]
 				then
 					rm -rf vdf/de
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M119X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-			
+
 
 		# ###############
 		# M11A0 TVTV    #
 		# ###############
-		
+
 		elif grep -q "010"  /tmp/value
 		then
 			# M11A0 MENU OVERLAY
@@ -1915,26 +1915,26 @@ do
 		elif grep -q "+" /tmp/value
 		then
 			# M11+0 MENU OVERLAY
-			echo 'dialog --backtitle "[M11+0] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > EXTERNAL" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M11+0] EASYEPG SIMPLE XMLTV GRABBER > ADD GRABBER > EXTERNAL" --title "SERVICE" --menu "Please select the service you want to grab:" 11 50 10 \' > /tmp/menu
+
 			# M11+1 SLOT 1
 			if [ ! -d ext/oa ]
 			then
 				echo '	1 "[OA] EXTERNAL SLOT 1" \' >> /tmp/menu
 			fi
-			
+
 			# M11+2 SLOT 2
 			if [ ! -d ext/ob ]
 			then
 				echo '	2 "[OB] EXTERNAL SLOT 2" \' >> /tmp/menu
 			fi
-			
+
 			# M11+3 SLOT 3
 			if [ ! -d ext/oc ]
 			then
 				echo '	1 "[OC] EXTERNAL SLOT 3" \' >> /tmp/menu
 			fi
-			
+
 			# M11+E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -1947,12 +1947,12 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-				
-				
+
+
 			# #######################
 			# M11+1 EXTERNAL SLOT 1 #
 			# #######################
-				
+
 			if grep -q "1" /tmp/value
 			then
 				mkdir ext/oa
@@ -1964,19 +1964,19 @@ do
 				cp ext/compare_menu.pl ext/oa/
 				cd ext/oa && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ext/oa/channels.json ]
 				then
 					rm -rf ext/oa
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# #######################
 			# M11+2 EXTERNAL SLOT 2 #
 			# #######################
-				
+
 			elif grep -q "2" /tmp/value
 			then
 				mkdir ext/ob
@@ -1988,19 +1988,19 @@ do
 				cp ext/compare_menu.pl ext/ob/
 				cd ext/ob && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ext/ob/channels.json ]
 				then
 					rm -rf ext/ob
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# #######################
 			# M11+3 EXTERNAL SLOT 3 #
 			# #######################
-				
+
 			elif grep -q "3" /tmp/value
 			then
 				mkdir ext/oc
@@ -2012,28 +2012,28 @@ do
 				cp ext/compare_menu.pl ext/oc/
 				cd ext/oc && bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ext/oc/channels.json ]
 				then
 					rm -rf ext/oc
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M11+X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# ############
 		# M1X00 EXIT #
 		# ############
-		
+
 		else
 			echo "M" > /tmp/value
 		fi
@@ -2047,43 +2047,43 @@ do
 	then
 		# M1200 MENU OVERLAY
 		echo 'dialog --backtitle "[M1200] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS" --title "PROVIDERS" --menu "Please select a provider you want to change:" 16 40 10 \' > /tmp/menu
-		
+
 		# M1210 HORIZON
 		if ls -l hzn/ | grep -q '^d' 2> /dev/null
 		then
 			echo '	001 "HORIZON" \' >> /tmp/menu
 		fi
-		
+
 		# M1220 ZATTOO
 		if ls -l ztt/ | grep -q '^d' 2> /dev/null
 		then
 			echo '	002 "ZATTOO" \' >> /tmp/menu
 		fi
-		
+
 		# M1230 SWISSCOM
 		if ls -l swc/ | grep -q '^d' 2> /dev/null
 		then
 			echo '	003 "SWISSCOM" \' >> /tmp/menu
 		fi
-		
+
 		# M1240 TVPLAYER
 		if ls -l tvp/ | grep -q '^d' 2> /dev/null
 		then
 			echo '	004 "TVPLAYER" \' >> /tmp/menu
 		fi
-		
+
 		# M1250 TELEKOM
 		if ls -l tkm/ | grep -q '^d' 2> /dev/null
 		then
 			echo '	005 "TELEKOM" \' >> /tmp/menu
 		fi
-		
+
 		# M1260 RADIOTIMES
 		if ls -l rdt/ | grep -q '^d' 2> /dev/null
 		then
 			echo '	006 "RADIOTIMES" \' >> /tmp/menu
 		fi
-		
+
 		# M1270 WAIPU.TV
 		if ls -l wpu/ | grep -q '^d' 2> /dev/null
 		then
@@ -2107,88 +2107,88 @@ do
 		then
 			echo '	010 "TVTV" \' >> /tmp/menu
 		fi
-		
+
 		# M12+0 EXTERNAL
 		if ls -l ext/ | grep -q '^d' 2> /dev/null
 		then
 			echo '	+ "EXTERNAL" \' >> /tmp/menu
 		fi
-		
+
 		echo "2> /tmp/value" >> /tmp/menu
 
 		bash /tmp/menu
 		input="$(cat /tmp/value)"
-		
-		
+
+
 		# ###############
 		# M1210 HORIZON #
 		# ###############
-		
+
 		if grep -q "001" /tmp/value
 		then
 			# M1210 MENU OVERLAY
-			echo 'dialog --backtitle "[M1210] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > HORIZON" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1210] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > HORIZON" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M1211 GERMANY
 			if [ -d hzn/de ]
 			then
 				echo '	1 "[DE] Unitymedia Germany" \' >> /tmp/menu
 			fi
-			
+
 			# M1212 AUSTRIA
 			if [ -d hzn/at ]
 			then
 				echo '	2 "[AT] Magenta T" \' >> /tmp/menu
 			fi
-			
+
 			# M1213 SWITZERLAND
 			if [ -d hzn/ch ]
 			then
 				echo '	3 "[CH] UPC Switzerland" \' >> /tmp/menu
 			fi
-			
+
 			# M1214 NETHERLANDS
 			if [ -d hzn/nl ]
 			then
 				echo '	4 "[NL] Ziggo Netherlands" \' >> /tmp/menu
 			fi
-			
+
 			# M1215 POLAND
 			if [ -d hzn/pl ]
 			then
 				echo '	5 "[PL] Horizon Poland" \' >> /tmp/menu
 			fi
-			
+
 			# M1216 IRELAND
 			if [ -d hzn/ie ]
 			then
 				echo '	6 "[IE] Virgin Media Ireland" \' >> /tmp/menu
 			fi
-			
+
 			# M1217 SLOVAKIA
 			if [ -d hzn/sk ]
 			then
 				echo '	7 "[SK] Horizon Slovakia" \' >> /tmp/menu
 			fi
-			
+
 			# M1218 CZECH REPUBLIC
 			if [ -d hzn/cz ]
 			then
 				echo '	8 "[CZ] Horizon Czech Republic" \' >> /tmp/menu
 			fi
-			
+
 			# M1219 HUNGARY
 			if [ -d hzn/hu ]
 			then
 				echo '	9 "[HU] Horizon Hungary" \' >> /tmp/menu
 			fi
-			
+
 			# M121R ROMANIA
 			if [ -d hzn/ro ]
 			then
 				echo '	0 "[RO] Horizon Romania" \' >> /tmp/menu
 			fi
-			
+
 			# M121E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2201,217 +2201,217 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ##################
 			# M1211 HORIZON DE #
 			# ##################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				cd hzn/de
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/de/channels.json ]
 				then
 					rm -rf hzn/de xml/horizon_de.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-				
-				
+
+
 			# ##################
 			# M1212 HORIZON AT #
 			# ##################
-			
+
 			elif grep -q "2" /tmp/value
 			then
 				cd hzn/at
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/at/channels.json ]
 				then
 					rm -rf hzn/at xml/horizon_at.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1213 HORIZON CH #
 			# ##################
-			
+
 			elif grep -q "3" /tmp/value
 			then
 				cd hzn/ch
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/ch/channels.json ]
 				then
 					rm -rf hzn/ch xml/horizon_ch.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1214 HORIZON NL #
 			# ##################
-			
+
 			elif grep -q "4" /tmp/value
 			then
 				cd hzn/nl
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/nl/channels.json ]
 				then
 					rm -rf hzn/nl xml/horizon_nl.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1215 HORIZON PL #
 			# ##################
-			
+
 			elif grep -q "5" /tmp/value
 			then
 				cd hzn/pl
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/pl/channels.json ]
 				then
 					rm -rf hzn/pl xml/horizon_pl.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1216 HORIZON IE #
 			# ##################
-			
+
 			elif grep -q "6" /tmp/value
 			then
 				cd hzn/ie
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/ie/channels.json ]
 				then
 					rm -rf hzn/ie xml/horizon_ie.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-				
-				
+
+
 			# ##################
 			# M1217 HORIZON SK #
 			# ##################
-			
+
 			elif grep -q "7" /tmp/value
 			then
 				cd hzn/sk
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/sk/channels.json ]
 				then
 					rm -rf hzn/sk xml/horizon_sk.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-				
-			
+
+
 			# ##################
 			# M1218 HORIZON CZ #
 			# ##################
-			
+
 			elif grep -q "8" /tmp/value
 			then
 				cd hzn/cz
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/cz/channels.json ]
 				then
 					rm -rf hzn/cz xml/horizon_cz.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1219 HORIZON HU #
 			# ##################
-			
+
 			elif grep -q "9" /tmp/value
 			then
 				cd hzn/hu
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/hu/channels.json ]
 				then
 					rm -rf hzn/hu xml/horizon_hu.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-				
-			
+
+
 			# ##################
 			# M121R HORIZON RO #
 			# ##################
-			
+
 			elif grep -q "0" /tmp/value
 			then
 				cd hzn/ro
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e hzn/ro/channels.json ]
 				then
 					rm -rf hzn/ro xml/horizon_ro.xml
 				fi
-				
+
 				echo "M" > /tmp/value
-			
+
 			# ############
 			# M121X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# ###############
 		# M1220 ZATTOO  #
 		# ###############
-		
+
 		elif grep -q "002" /tmp/value
 		then
 			# M1220 MENU OVERLAY
-			echo 'dialog --backtitle "[M1220] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > ZATTOO" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1220] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > ZATTOO" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M1221 GERMANY
 			if [ -d ztt/de ]
 			then
 				echo '	1 "[DE] Zattoo Germany" \' >> /tmp/menu
 			fi
-			
+
 			# M1222 SWITZERLAND
 			if [ -d ztt/ch ]
 			then
 				echo '	2 "[CH] Zattoo Switzerland" \' >> /tmp/menu
 			fi
-			
+
 			# M122E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2424,68 +2424,68 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ##################
 			# M1221 ZATTOO DE  #
 			# ##################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				cd ztt/de
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ztt/de/channels.json ]
 				then
 					rm -rf ztt/de xml/zattoo_de.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ##################
 			# M1222 ZATTOO CH  #
 			# ##################
-			
+
 			elif grep -q "2" /tmp/value
 			then
 				cd ztt/ch
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ztt/ch/channels.json ]
 				then
 					rm -rf ztt/ch xml/zattoo_ch.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M122X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-			
-		
+
+
 		# #################
 		# M1230 SWISSCOM  #
 		# #################
-		
+
 		elif grep -q "003" /tmp/value
 		then
 			# M1230 MENU OVERLAY
-			echo 'dialog --backtitle "[M1230] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > SWISSCOM" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1230] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > SWISSCOM" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M1231 SWISSCOM CH
 			if [ -d swc/ch ]
 			then
 				echo '	1 "[CH] SWISSCOM" \' >> /tmp/menu
 			fi
-			
+
 			# M123E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2498,50 +2498,50 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ####################
 			# M1231 SWISSCOM CH  #
 			# ####################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				cd swc/ch
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e swc/ch/channels.json ]
 				then
 					rm -rf swc/ch xml/swisscom_ch.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M123X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# #################
 		# M1240 TVPLAYER  #
 		# #################
-		
+
 		elif grep -q "004" /tmp/value
 		then
 			# M1240 MENU OVERLAY
-			echo 'dialog --backtitle "[M1240] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > TVPLAYER" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1240] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > TVPLAYER" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M1241 TVPLAYER UK
 			if [ -d tvp/uk ]
 			then
 				echo '	1 "[UK] TVPLAYER" \' >> /tmp/menu
 			fi
-			
+
 			# M124E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2554,50 +2554,50 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ####################
 			# M1241 TVPLAYER UK  #
 			# ####################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				cd tvp/uk
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e tvp/uk/channels.json ]
 				then
 					rm -rf tvp/uk xml/tvplayer_uk.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M124X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# ######################
 		# M1250 MAGENTA TV DE  #
 		# ######################
-		
+
 		elif grep -q "005" /tmp/value
 		then
 			# M1250 MENU OVERLAY
-			echo 'dialog --backtitle "[M1250] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > TELEKOM" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1250] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > TELEKOM" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M1251 MAGENTA TV DE
 			if [ -d tkm/de ]
 			then
 				echo '	1 "[DE] MAGENTATV" \' >> /tmp/menu
 			fi
-			
+
 			# M125E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2610,50 +2610,50 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ######################
 			# M1251 MAGENTA TV DE  #
 			# ######################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				cd tkm/de
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e tkm/de/channels.json ]
 				then
 					rm -rf tkm/de xml/magentatv_de.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M125X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# ##################
 		# M1260 RADIOTIMES #
 		# ##################
-		
+
 		elif grep -q "006" /tmp/value
 		then
 			# M1260 MENU OVERLAY
-			echo 'dialog --backtitle "[M1260] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > RADIOTIMES" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1260] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > RADIOTIMES" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M1261 RADIOTIMES UK
 			if [ -d rdt/uk ]
 			then
 				echo '	1 "[UK] RADIOTIMES" \' >> /tmp/menu
 			fi
-			
+
 			# M126E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2666,50 +2666,50 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ######################
 			# M1261 RADIOTIMES UK  #
 			# ######################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				cd rdt/uk
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e rdt/uk/channels.json ]
 				then
 					rm -rf rdt/uk xml/radiotimes_uk.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M126X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
-		
+
+
 		# ##################
 		# M1270 WAIPU.TV   #
 		# ##################
-		
+
 		elif grep -q "007" /tmp/value
 		then
 			# M1270 MENU OVERLAY
-			echo 'dialog --backtitle "[M1270] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > WAIPU.TV" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1270] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > WAIPU.TV" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M1271 WAIPU.TV DE
 			if [ -d wpu/de ]
 			then
 				echo '	1 "[DE] WAIPU.TV" \' >> /tmp/menu
 			fi
-			
+
 			# M127E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2722,49 +2722,49 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ######################
 			# M1271 WAIPU.TV DE    #
 			# ######################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				cd wpu/de
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e wpu/de/channels.json ]
 				then
 					rm -rf wpu/de xml/waipu_de.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M127X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
+
 		# ######################
 		# M1280 TV-SPIELFILM   #
 		# ######################
-		
+
 		elif grep -q "008" /tmp/value
 		then
 			# M1280 MENU OVERLAY
-			echo 'dialog --backtitle "[M1280] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > TV-SPIELFILM" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1280] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > TV-SPIELFILM" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M1281 TV-SPIELFILM  DE
 			if [ -d tvs/de ]
 			then
 				echo '	1 "[DE] TV-SPIELFILM " \' >> /tmp/menu
 			fi
-			
+
 			# M128E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2777,49 +2777,49 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ######################
 			# M1281 TV-SPIELFILM   #
 			# ######################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				cd tvs/de
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e tvs/de/channels.json ]
 				then
 					rm -rf tvs/de xml/tv-spielfilm_de.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M128X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-		
+
 		# ######################
 		# M1290 VODAFONE   #
 		# ######################
-		
+
 		elif grep -q "009" /tmp/value
 		then
 			# M1290 MENU OVERLAY
-			echo 'dialog --backtitle "[M1290] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > VODAFONE" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M1290] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > VODAFONE" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M1291 VODAFONE  DE
 			if [ -d vdf/de ]
 			then
 				echo '	1 "[DE] VODAFONE " \' >> /tmp/menu
 			fi
-			
+
 			# M128E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2832,34 +2832,34 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ######################
 			# M1291 VODAFONE       #
 			# ######################
-			
+
 			if grep -q "1" /tmp/value
 			then
 				cd vdf/de
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e vdf/de/channels.json ]
 				then
 					rm -rf vdf/de xml/vodafone_de.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M129X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-			
+
 
 		# ###############
 		# M12A0 TVTV    #
@@ -2944,30 +2944,30 @@ do
 		# ######################
 		# M12+0 EXTERNAL       #
 		# ######################
-		
+
 		elif grep -q "+" /tmp/value
 		then
 			# M12+0 MENU OVERLAY
-			echo 'dialog --backtitle "[M12+0] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > EXTERNAL" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu 
-			
+			echo 'dialog --backtitle "[M12+0] EASYEPG SIMPLE XMLTV GRABBER > SETTINGS > EXTERNAL" --title "SERVICE" --menu "Please select the service you want to change:" 11 50 10 \' > /tmp/menu
+
 			# M12+1 EXTERNAL SLOT 1
 			if [ -d ext/oa ]
 			then
 				echo '	1 "[OA] EXTERNAL SLOT 1" \' >> /tmp/menu
 			fi
-			
+
 			# M12+2 EXTERNAL SLOT 2
 			if [ -d ext/ob ]
 			then
 				echo '	2 "[OB] EXTERNAL SLOT 2" \' >> /tmp/menu
 			fi
-			
+
 			# M12+3 EXTERNAL SLOT 3
 			if [ -d ext/oc ]
 			then
 				echo '	3 "[OC] EXTERNAL SLOT 3" \' >> /tmp/menu
 			fi
-			
+
 			# M12+E ERROR
 			if ! grep -q '[0-9] "\[[A-Z][A-Z]\] ' /tmp/menu
 			then
@@ -2980,84 +2980,84 @@ do
 				bash /tmp/menu
 				input="$(cat /tmp/value)"
 			fi
-			
-			
+
+
 			# ########################
 			# M12+1 EXTERNAL SLOT 1  #
 			# ########################
-						
+
 			if grep -q "1" /tmp/value
 			then
 				cd ext/oa
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ext/oa/channels.json ]
 				then
 					rm -rf ext/oa xml/external_oa.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ########################
 			# M12+2 EXTERNAL SLOT 2  #
 			# ########################
-						
+
 			elif grep -q "2" /tmp/value
 			then
 				cd ext/ob
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ext/ob/channels.json ]
 				then
 					rm -rf ext/ob xml/external_ob.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ########################
 			# M12+3 EXTERNAL SLOT 3  #
 			# ########################
-						
+
 			elif grep -q "3" /tmp/value
 			then
 				cd ext/oc
 				bash settings.sh
 				cd - > /dev/null
-				
+
 				if [ ! -e ext/oc/channels.json ]
 				then
 					rm -rf ext/oc xml/external_oc.xml 2> /dev/null
 				fi
-				
+
 				echo "M" > /tmp/value
-			
-			
+
+
 			# ############
 			# M12+X EXIT #
 			# ############
-			
+
 			else
 				echo "M" > /tmp/value
 			fi
-			
-		
+
+
 		# ############
 		# M12X0 EXIT #
 		# ############
-			
+
 		else
 			echo "M" > /tmp/value
 		fi
-	
-	
+
+
 	# ####################################
 	# M1300 CREATE MULTI-SOURCE XML FILE #
 	# ####################################
-	
+
 	elif grep -q "3" /tmp/value
 	then
 		echo "C" > /tmp/value
@@ -3066,28 +3066,28 @@ do
 			bash combine.sh
 		done
 		echo "M" > /tmp/value
-	
-	
+
+
 	# ################################
 	# M1400 CONTINUE IN GRABBER MODE #
 	# ################################
-	
+
 	elif grep -q "4" /tmp/value
 	then
 		echo "G" > /tmp/value
-	
-	
+
+
 	# ##############
 	# M1500 UPDATE #
 	# ##############
-	
+
 	elif grep -q "5" /tmp/value
 	then
 		clear
-		
+
 		rm -rf easyepg 2> /dev/null
 		git clone https://github.com/sunsettrack4/easyepg
-		
+
 		if [ -e easyepg/update.sh ]
 		then
 			bash easyepg/update.sh
@@ -3101,17 +3101,17 @@ do
 			read -n 1 -s -r -p "Press any key to continue..."
 			echo "M" > /tmp/value
 		fi
-	
-	
+
+
 	# ###########################
 	# M1600 BACKUP / RESTORE    #
 	# ###########################
-	
+
 	elif grep -q "6" /tmp/value
 	then
 		# M1610 MENU OVERLAY
-		echo 'dialog --backtitle "[M1610] EASYEPG SIMPLE XMLTV GRABBER > BACKUP/RESTORE" --title "OPTIONS" --menu "Please select the desired action:" 9 40 10 \' > /tmp/menu 
-			
+		echo 'dialog --backtitle "[M1610] EASYEPG SIMPLE XMLTV GRABBER > BACKUP/RESTORE" --title "OPTIONS" --menu "Please select the desired action:" 9 40 10 \' > /tmp/menu
+
 		# M1611 BACKUP
 		ls -l hzn/ >  /tmp/providerlist
 		ls -l ztt/ >> /tmp/providerlist
@@ -3128,23 +3128,23 @@ do
 		then
 			echo '	1 "BACKUP SETUP" \' >> /tmp/menu
 		fi
-			
+
 		# M1612 RESTORE
 		if [ -e easyepg_backup.zip ]
 		then
 			echo '	2 "RESTORE SETUP" \' >> /tmp/menu
 		fi
-		
+
 		echo "2> /tmp/value" >> /tmp/menu
-		
+
 		bash /tmp/menu
 		input="$(cat /tmp/value)"
-		
-		
+
+
 		# ########################
 		# M1611 BACKUP SETUP     #
 		# ########################
-						
+
 		if grep -q "1" /tmp/value
 		then
 			clear
@@ -3159,12 +3159,12 @@ do
 			bash backup.sh
 			read -n 1 -s -r -p "Press any key to continue..."
 			echo "M" > /tmp/value
-		
-		
+
+
 		# ########################
 		# M1612 RESTORE SETUP    #
 		# ########################
-						
+
 		elif grep -q "2" /tmp/value
 		then
 			clear
@@ -3179,35 +3179,35 @@ do
 			bash restore.sh
 			read -n 1 -s -r -p "Press any key to continue..."
 			echo "M" > /tmp/value
-		
-		
+
+
 		# ############
 		# M16X0 EXIT #
 		# ############
-			
+
 		else
 			echo "M" > /tmp/value
 		fi
-	
-	
+
+
 	# ###########################
 	# M1900 ABOUT THIS PROJECT  #
 	# ###########################
-	
+
 	elif grep -q "9" /tmp/value
 	then
 		dialog --backtitle "[M1900] EASYEPG SIMPLE XMLTV GRABBER > ABOUT"  --title "ABOUT THE EASYEPG PROJECT" --msgbox "easyEPG Grabber\n(c) 2019-2020 Jan-Luca Neumann / sunsettrack4\nhttps://github.com/sunsettrack4\n\nLicensed under GPL v3.0 - All rights reserved.\n\n* This tool provides high-quality EPG data from different IPTV/OTT sources.\n* It allows you to combine multiple sources for XMLTV file creation.\n* Missing data can be added by using the IMDB mapper tool.\n* Furthermore, you can import XML files from external sources.\n\nSpecial thanks:\n- DeBaschdi - https://github.com/debaschdi (for collaboration)" 19 70
 		echo "M" > /tmp/value
-	
+
 	# ############
 	# M1X00 EXIT #
 	# ############
-	
+
 	else
 		dialog --backtitle "[M1X00] EASYEPG SIMPLE XMLTV GRABBER > EXIT"  --title "EXIT" --yesno "Do you want to quit?" 5 30
-						
+
 		response=$?
-				
+
 		if [ $response = 1 ]
 		then
 			echo "M" > /tmp/value
@@ -3228,7 +3228,7 @@ done
 
 clear
 
-if grep -q "G" /tmp/value	
+if grep -q "G" /tmp/value
 then
 	if ls -l hzn/ | grep -q '^d'
 	then
@@ -3240,8 +3240,8 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
-		cd hzn/de 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp hzn/de/horizon.xml xml/horizon_de.xml 2> /dev/null
+
+		cd hzn/de 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp $PATH_TMP_EPG/horizon.xml $PATH_TMP_EPG/horizon_de.xml 2> /dev/null
 		cd hzn/at 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp hzn/at/horizon.xml xml/horizon_at.xml 2> /dev/null
 		cd hzn/ch 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp hzn/ch/horizon.xml xml/horizon_ch.xml 2> /dev/null
 		cd hzn/nl 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp hzn/nl/horizon.xml xml/horizon_nl.xml 2> /dev/null
@@ -3263,11 +3263,11 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
+
 		cd ztt/de 2> /dev/null && bash ztt.sh && cd - > /dev/null && cp ztt/de/zattoo.xml xml/zattoo_de.xml 2> /dev/null
 		cd ztt/ch 2> /dev/null && bash ztt.sh && cd - > /dev/null && cp ztt/ch/zattoo.xml xml/zattoo_ch.xml 2> /dev/null
 	fi
-	
+
 	if ls -l swc/ | grep -q '^d'
 	then
 		echo ""
@@ -3278,10 +3278,10 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
+
 		cd swc/ch 2> /dev/null && bash swc.sh && cd - > /dev/null && cp swc/ch/swisscom.xml xml/swisscom_ch.xml 2> /dev/null
 	fi
-	
+
 	if ls -l tvp/ | grep -q '^d'
 	then
 		echo ""
@@ -3292,10 +3292,10 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
+
 		cd tvp/uk 2> /dev/null && bash tvp.sh && cd - > /dev/null && cp tvp/uk/tvp.xml xml/tvplayer_uk.xml 2> /dev/null
 	fi
-	
+
 	if ls -l tkm/ | grep -q '^d'
 	then
 		echo ""
@@ -3306,10 +3306,10 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
+
 		cd tkm/de 2> /dev/null && bash tkm.sh && cd - > /dev/null && cp tkm/de/magenta.xml xml/magentatv_de.xml 2> /dev/null
 	fi
-	
+
 	if ls -l rdt/ | grep -q '^d'
 	then
 		echo ""
@@ -3320,10 +3320,10 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
+
 		cd rdt/uk 2> /dev/null && bash rdt.sh && cd - > /dev/null && cp rdt/uk/radiotimes.xml xml/radiotimes_uk.xml 2> /dev/null
 	fi
-	
+
 	if ls -l wpu/ | grep -q '^d'
 	then
 		echo ""
@@ -3334,7 +3334,7 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
+
 		cd wpu/de 2> /dev/null && bash wpu.sh && cd - > /dev/null && cp wpu/de/waipu.xml xml/waipu_de.xml 2> /dev/null
 	fi
 
@@ -3348,7 +3348,7 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
+
 		cd tvs/de 2> /dev/null && bash tvs.sh && cd - > /dev/null && cp tvs/de/tv-spielfilm.xml xml/tv-spielfilm_de.xml 2> /dev/null
 	fi
 
@@ -3362,7 +3362,7 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
+
 		cd vdf/de 2> /dev/null && bash vdf.sh && cd - > /dev/null && cp vdf/de/vodafone.xml xml/vodafone_de.xml 2> /dev/null
 	fi
 
@@ -3391,7 +3391,7 @@ then
 		echo " --------------------------------------------"
 		echo ""
 		sleep 2s
-		
+
 		cd ext/oa 2> /dev/null && bash ext.sh && cd - > /dev/null && cp ext/oa/external.xml xml/external_oa.xml 2> /dev/null
 		cd ext/ob 2> /dev/null && bash ext.sh && cd - > /dev/null && cp ext/ob/external.xml xml/external_ob.xml 2> /dev/null
 		cd ext/oc 2> /dev/null && bash ext.sh && cd - > /dev/null && cp ext/oc/external.xml xml/external_oc.xml 2> /dev/null
@@ -3414,493 +3414,118 @@ then
 	sleep 2s
 fi
 
+mappingCountry=(
+		# HORIZON
+								 'horizon' 'hzn' 'de' 'UNITYMEDIA GERMANY'
+								 'horizon' 'hzn' 'at' 'MAGENTA T'
+								 'horizon' 'hzn' 'ch' 'UPC SWITZERLAND'
+								 'horizon' 'hzn' 'nl' 'ZIGGO NETHERLANDS'
+								 'horizon' 'hzn' 'pl' 'HORIZON POLAND'
+								 'horizon' 'hzn' 'ie' 'VIRGIN MEDIA IRELAND'
+								 'horizon' 'hzn' 'sk' 'HORIZON SLOVAKIA'
+								 'horizon' 'hzn' 'cz' 'HORIZON CZECH REPUBLIC'
+								 'horizon' 'hzn' 'hu' 'HORIZON HUNGARY'
+								 'horizon' 'hzn' 'ro' 'HORIZON ROMANIA'
+
+
+								 'zattoo' 'ztt' 'de' 'ZATTOO GERMANY'
+								 'zattoo' 'ztt' 'ch' 'ZATTOO SWITZERLAND'
+								 'swisscom' 'swc' 'ch' 'SWISSCOM SWITZERLAND'
+								 'tvplayer' 'tvp' 'uk' 'TVPLAYER UK'
+								 'magentatv' 'tkm' 'de' 'MAGENTA TV DE'
+		# RADIOTIMES UK
+								 'radiotimes' 'rdt' 'uk' 'RADIOTIMES UK'
+		# WAIPU.TV DE
+								 'waipu' 'wpu' 'de' 'WAIPU.TV DE'
+		# TV-SPIELFILM
+								 'tv-spielfilm' 'tvs' 'de' 'TV-SPIELFILM DE'
+		# VODAFONE
+								 'vodafone' 'vdf' 'de' 'VODAFONE DE'
+		# TVTV US
+								 'tvtv' 'tvtv' 'us' 'TVTV USA'
+		# TVTV CA
+								 'tvtv' 'tvtv' 'ca' 'TVTV CANADA'
+		# EXTERNAL SLOT 1
+								 'external' 'ext' 'oa' 'EXTERNAL SOURCE SLOT 1'
+		# EXTERNAL SLOT 2
+								 'external' 'ext' 'ob' 'EXTERNAL SOURCE SLOT 2'
+		# EXTERNAL SLOT 3
+								 'external' 'ext' 'oc' 'EXTERNAL SOURCE SLOT 3'
+							 )
+
 while [ -s /tmp/combinefolders ]
 do
 	folder=$(sed -n "1p" /tmp/combinefolders)
 
 	printf "Creating XML file: $folder.xml ..."
-	
+
 	if grep -q '"day": "0"' combine/$folder/settings.json
 	then
 		printf "\rCreating XML file: $folder.xml ... DISABLED!\n"
 		sed -i '1d' /tmp/combinefolders
 	else
 		rm /tmp/file /tmp/combined_channels /tmp/combined_programmes 2> /dev/null
-		
-		# HORIZON DE
-		if [ -s combine/$folder/hzn_de_channels.json ]
-		then
-			if [ -s xml/horizon_de.xml ]
-			then
-				sed 's/fileNAME/horizon_de.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_de_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: UNITYMEDIA GERMANY -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_de.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_de_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: UNITYMEDIA GERMANY -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# HORIZON AT
-		if [ -s combine/$folder/hzn_at_channels.json ]
-		then
-			if [ -s xml/horizon_at.xml ]
-			then
-				sed 's/fileNAME/horizon_at.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_at_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: MAGENTA T  -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_at.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_at_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: MAGENTA T -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		
-		# HORIZON CH
-		if [ -s combine/$folder/hzn_ch_channels.json ]
-		then
-			if [ -s xml/horizon_ch.xml ]
-			then
-				sed 's/fileNAME/horizon_ch.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_ch_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: UPC SWITZERLAND -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_ch.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_ch_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: UPC SWITZERLAND -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# HORIZON NL
-		if [ -s combine/$folder/hzn_nl_channels.json ]
-		then
-			if [ -s xml/horizon_nl.xml ]
-			then
-				sed 's/fileNAME/horizon_nl.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_nl_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: ZIGGO NETHERLANDS -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_nl.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_nl_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: ZIGGO NETHERLANDS -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# HORIZON PL
-		if [ -s combine/$folder/hzn_pl_channels.json ]
-		then
-			if [ -s xml/horizon_pl.xml ]
-			then
-				sed 's/fileNAME/horizon_pl.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_pl_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: HORIZON POLAND -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_pl.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_pl_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: HORIZON POLAND -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# HORIZON IE
-		if [ -s combine/$folder/hzn_ie_channels.json ]
-		then
-			if [ -s xml/horizon_ie.xml ]
-			then
-				sed 's/fileNAME/horizon_ie.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_ie_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: VIRGIN MEDIA IRELAND -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_ie.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_ie_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: VIRGIN MEDIA IRELAND -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# HORIZON SK
-		if [ -s combine/$folder/hzn_sk_channels.json ]
-		then
-			if [ -s xml/horizon_sk.xml ]
-			then
-				sed 's/fileNAME/horizon_sk.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_sk_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: HORIZON SLOVAKIA -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_sk.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_sk_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: HORIZON SLOVAKIA -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# HORIZON CZ
-		if [ -s combine/$folder/hzn_cz_channels.json ]
-		then
-			if [ -s xml/horizon_cz.xml ]
-			then
-				sed 's/fileNAME/horizon_cz.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_cz_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: HORIZON CZECH REPUBLIC -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_cz.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_cz_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: HORIZON CZECH REPUBLIC -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# HORIZON HU
-		if [ -s combine/$folder/hzn_hu_channels.json ]
-		then
-			if [ -s xml/horizon_hu.xml ]
-			then
-				sed 's/fileNAME/horizon_hu.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_hu_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: HORIZON HUNGARY -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_hu.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_hu_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: HORIZON HUNGARY -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# HORIZON RO
-		if [ -s combine/$folder/hzn_ro_channels.json ]
-		then
-			if [ -s xml/horizon_ro.xml ]
-			then
-				sed 's/fileNAME/horizon_ro.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_ro_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: HORIZON ROMANIA -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/horizon_ro.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/hzn_ro_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: HORIZON ROMANIA -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# ZATTOO DE
-		if [ -s combine/$folder/ztt_de_channels.json ]
-		then
-			if [ -s xml/zattoo_de.xml ]
-			then
-				sed 's/fileNAME/zattoo_de.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/ztt_de_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: ZATTOO GERMANY -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/zattoo_de.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/ztt_de_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: ZATTOO GERMANY -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# ZATTOO CH
-		if [ -s combine/$folder/ztt_ch_channels.json ]
-		then
-			if [ -s xml/zattoo_ch.xml ]
-			then
-				sed 's/fileNAME/zattoo_ch.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/ztt_ch_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: ZATTOO SWITZERLAND -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/zattoo_ch.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/ztt_ch_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: ZATTOO SWITZERLAND -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# SWISSCOM CH
-		if [ -s combine/$folder/swc_ch_channels.json ]
-		then
-			if [ -s xml/swisscom_ch.xml ]
-			then
-				sed 's/fileNAME/swisscom_ch.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/swc_ch_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: SWISSCOM SWITZERLAND -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/swisscom_ch.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/swc_ch_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: SWISSCOM SWITZERLAND -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# TVPLAYER UK
-		if [ -s combine/$folder/tvp_uk_channels.json ]
-		then
-			if [ -s xml/tvplayer_uk.xml ]
-			then
-				sed 's/fileNAME/tvplayer_uk.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/tvp_uk_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: TVPLAYER UK -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/tvplayer_uk.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/tvp_uk_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: TVPLAYER UK -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# MAGENTA TV DE
-		if [ -s combine/$folder/tkm_de_channels.json ]
-		then
-			if [ -s xml/magentatv_de.xml ]
-			then
-				sed 's/fileNAME/magentatv_de.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/tkm_de_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: MAGENTA TV DE -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/magentatv_de.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/tkm_de_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: MAGENTA TV DE -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# RADIOTIMES UK
-		if [ -s combine/$folder/rdt_uk_channels.json ]
-		then
-			if [ -s xml/radiotimes_uk.xml ]
-			then
-				sed 's/fileNAME/radiotimes_uk.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/rdt_uk_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: RADIOTIMES UK -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/radiotimes_uk.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/rdt_uk_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: RADIOTIMES UK -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# WAIPU.TV DE
-		if [ -s combine/$folder/wpu_de_channels.json ]
-		then
-			if [ -s xml/waipu_de.xml ]
-			then
-				sed 's/fileNAME/waipu_de.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/wpu_de_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: WAIPU.TV DE -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/waipu_de.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/wpu_de_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: WAIPU.TV DE -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# TV-SPIELFILM
-		if [ -s combine/$folder/tvs_de_channels.json ]
-		then
-			if [ -s xml/tv-spielfilm_de.xml ]
-			then
-				sed 's/fileNAME/tv-spielfilm_de.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/tvs_de_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: TV-SPIELFILM DE -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/tv-spielfilm_de.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/tvs_de_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: TV-SPIELFILM DE -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
 
-		# VODAFONE
-		if [ -s combine/$folder/vdf_de_channels.json ]
-		then
-			if [ -s xml/vodafone_de.xml ]
-			then
-				sed 's/fileNAME/vodafone_de.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/vdf_de_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: VODAFONE DE -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/vodafone_de.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/vdf_de_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: VODAFONE DE -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
 
-		# TVTV US
-		if [ -s combine/$folder/tvtv_us_channels.json ]
-		then
-			if [ -s xml/tvtv_us.xml ]
+    for (( i=0; i<${#mappingCountry[@]}; i+=4 )); do
+      #printf "\nStarting: ${mappingCountry[$i+3]} -->\n"
+			if [ -s combine/$folder/${mappingCountry[$i+1]}_${mappingCountry[$i+2]}_channels.json ]
 			then
-				sed 's/fileNAME/tvtv_us.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/tvtv_us_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: TVTV USA -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
+			  #printf "\nStart2: ${mappingCountry[$i+3]} -->\n"
+				if [ -s $PATH_TMP_EPG/${mappingCountry[$i]}_${mappingCountry[$i+2]}.xml ]
+				then
+					#printf "\nStart3: ${mappingCountry[$i+3]} -->\n"
+					printf "\n<!-- CHANNEL LIST: ${mappingCountry[$i+3]} -->\n\n" >> /tmp/combined_channels
+					perl ch_combine.pl $PATH_TMP_EPG/${mappingCountry[$i]}_${mappingCountry[$i+2]}.xml combine/$folder/${mappingCountry[$i+1]}_${mappingCountry[$i+2]}_channels.json >> /tmp/combined_channels
 
-				sed 's/fileNAME/tvtv_us.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/tvtv_us_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: TVTV USA -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
+					printf "\n<!-- PROGRAMMES: ${mappingCountry[$i+3]} -->\n\n" >> /tmp/combined_programmes
+					perl prog_combine.pl $PATH_TMP_EPG/${mappingCountry[$i]}_${mappingCountry[$i+2]}.xml combine/$folder/${mappingCountry[$i+1]}_${mappingCountry[$i+2]}_channels.json combine/$folder/settings.json >> /tmp/combined_programmes
+				fi
 			fi
-		fi
+		done
 
-		# TVTV CA
-		if [ -s combine/$folder/tvtv_ca_channels.json ]
-		then
-			if [ -s xml/tvtv_ca.xml ]
-			then
-				sed 's/fileNAME/tvtv_ca.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/tvtv_ca_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: TVTV CANADA -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-
-				sed 's/fileNAME/tvtv_ca.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/tvtv_ca_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: TVTV CANADA -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-
-		# EXTERNAL SLOT 1
-		if [ -s combine/$folder/ext_oa_channels.json ]
-		then
-			if [ -s xml/external_oa.xml ]
-			then
-				sed 's/fileNAME/external_oa.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/ext_oa_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: EXTERNAL SOURCE SLOT 1 -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/external_oa.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/ext_oa_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: EXTERNAL SOURCE SLOT 1 -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# EXTERNAL SLOT 2
-		if [ -s combine/$folder/ext_ob_channels.json ]
-		then
-			if [ -s xml/external_ob.xml ]
-			then
-				sed 's/fileNAME/external_ob.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/ext_ob_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: EXTERNAL SOURCE SLOT 2 -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/external_ob.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/ext_ob_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: EXTERNAL SOURCE SLOT 2 -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
-		# EXTERNAL SLOT 3
-		if [ -s combine/$folder/ext_oc_channels.json ]
-		then
-			if [ -s xml/external_oc.xml ]
-			then
-				sed 's/fileNAME/external_oc.xml/g' ch_combine.pl > /tmp/ch_combine.pl
-				sed -i "s/channelsFILE/$folder\/ext_oc_channels.json/g" /tmp/ch_combine.pl
-				printf "\n<!-- CHANNEL LIST: EXTERNAL SOURCE SLOT 3 -->\n\n" >> /tmp/combined_channels
-				perl /tmp/ch_combine.pl >> /tmp/combined_channels
-				
-				sed 's/fileNAME/external_oc.xml/g' prog_combine.pl > /tmp/prog_combine.pl
-				sed -i "s/channelsFILE/$folder\/ext_oc_channels.json/g" /tmp/prog_combine.pl
-				sed -i "s/settingsFILE/$folder\/settings.json/g" /tmp/prog_combine.pl
-				printf "\n<!-- PROGRAMMES: EXTERNAL SOURCE SLOT 3 -->\n\n" >> /tmp/combined_programmes
-				perl /tmp/prog_combine.pl >> /tmp/combined_programmes
-			fi
-		fi
-		
 		cat /tmp/combined_programmes >> /tmp/combined_channels 2> /dev/null && mv /tmp/combined_channels /tmp/file 2> /dev/null
-		
+
 		if [ -s /tmp/file ]
 		then
 			sed -i 's/\&/\&amp;/g' /tmp/file
-		
+
 			sed -i "1i<\!-- EPG XMLTV FILE CREATED BY THE EASYEPG PROJECT - (c) 2019-2020 Jan-Luca Neumann -->\n<\!-- created on $(date) -->\n<tv>" /tmp/file
 			sed -i '1i<?xml version="1.0" encoding="UTF-8" ?>' /tmp/file
-			sed '$s/.*/&\n<\/tv>/g' /tmp/file > combine/$folder/$folder.xml
+			mkdir -p $PATH_TMP_EPG/combine/$folder
+			sed '$s/.*/&\n<\/tv>/g' /tmp/file > $PATH_TMP_EPG/combine/$folder/$folder.xml
 			rm /tmp/combined_programmes
 			sed -i '1d' /tmp/combinefolders
-			
+
 			if [ -s combine/$folder/pre_setup.sh ]
 			then
 				printf "\n\n --------------------------------------\n\nRunning PRE SCRIPT for $folder.xml ...\n\n"
 				bash combine/$folder/pre_setup.sh
 				printf "\n\nDONE!\n\n"
 			fi
-			
+
 			if [ -e combine/$folder/run.pl ]
 			then
 				printf "\n\n --------------------------------------\n\nRunning addon: IMDB MAPPER for $folder.xml ...\n\n"
-				perl imdb/run.pl combine/$folder/$folder.xml  combine/$folder/$folder_1.xml && mv combine/$folder/$folder_1.xml combine/$folder/$folder.xml
+				perl imdb/run.pl $PATH_TMP_EPG/combine/$folder/$folder.xml  $PATH_TMP_EPG/combine/$folder/$folder_1.xml && mv $PATH_TMP_EPG/combine/$folder/$folder_1.xml $PATH_TMP_EPG/combine/$folder/$folder.xml
 				printf "\n\nDONE!\n\n"
 			fi
-			
+
 			if [ -s combine/$folder/ratingmapper.pl ]
 			then
 				printf "\n\n --------------------------------------\n\nRunning addon: RATING MAPPER for $folder.xml ...\n\n"
-				perl combine/$folder/ratingmapper.pl combine/$folder/$folder.xml > combine/$folder/$folder_1.xml && mv combine/$folder/$folder_1.xml combine/$folder/$folder.xml
+				perl combine/$folder/ratingmapper.pl $PATH_TMP_EPG/combine/$folder/$folder.xml > $PATH_TMP_EPG/combine/$folder/$folder_1.xml && mv $PATH_TMP_EPG/combine/$folder/$folder_1.xml $PATH_TMP_EPG/$folder.xml
 				printf "\n\nDONE!\n\n"
 			fi
-			
+
 			if [ -s combine/$folder/setup.sh ]
 			then
 				printf "\n\n --------------------------------------\n\nRunning POST SCRIPT for $folder.xml ...\n\n"
 				bash combine/$folder/setup.sh
 				printf "\n\nDONE!\n\n"
 			fi
-			
-			cp combine/$folder/$folder.xml xml/$folder.xml
+
+			#cp $PATH_TMP_EPG/combine/$folder/$folder.xml $PATH_TMP_EPG/$folder.xml
 			printf "\rXML file $folder.xml created!                            \n"
 		else
 			printf "\rCreation of XML file $folder.xml failed!\nNo XML or setup file available! Please check your setup!\n"

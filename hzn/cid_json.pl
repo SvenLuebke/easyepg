@@ -27,20 +27,18 @@
 
 use strict;
 use warnings;
-
+ 
 binmode STDOUT, ":utf8";
 binmode STDERR, ":utf8";
 use utf8;
-
+ 
 use JSON;
-
-my $PATH_TMP_EPG="$ENV{'PATH_TMP_EPG'}";
 
 # READ JSON INPUT FILE: CHLIST
 my $json;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "$PATH_TMP_EPG/chlist" or die;
+    open my $fh, "<", "/tmp/chlist" or die;
     $json = <$fh>;
     close $fh;
 }
@@ -49,7 +47,7 @@ my $json;
 my $data   = decode_json($json);
 
 # CREATE REPORT FILE TO CHECK DUPLICATES
-open my $fh, ">", "$PATH_TMP_EPG/report.txt";
+open my $fh, ">", "/tmp/report.txt";
 print $fh "{\"channels\":[]}";
 close $fh;
 
@@ -58,31 +56,31 @@ print "{ \"cid\":\n  {\n";
 my @channels = @{ $data->{'channels'} };
 foreach my $channels ( @channels ) {
 	my @schedule = @{ $channels->{'stationSchedules'} };
-
+	
 	foreach my $schedule ( @schedule ) {
 		my $item = $schedule->{'station'};
-
+		
 		# ####################
         # DEFINE JSON VALUES #
         # ####################
-
+        
         # DEFINE CHANNEL NAME
 		my $cname   = $item->{'title'};
 		$cname =~ s/\&/\&amp;/g; # REQUIRED TO READ XML FILE CORRECTLY
 		$cname =~ s///g;		 # REMOVE "SELECTED AREA"
 		$cname =~ s///g;
 		$cname =~ s/\ \ /\ /g;
-
+		
 		# DEFINE CHANNEL ID
 		my $cid     = $item->{'id'};
-
+		
 		# ########################################
 		# UPDATE REPORT FILE TO CHECK DUPLICATES #
 		# ########################################
-
+		
 		do {
-			open my $input_h, "<:encoding(UTF-8)", "$PATH_TMP_EPG/report.txt";
-			open my $output_h, ">:encoding(UTF-8)", "$PATH_TMP_EPG/report_temp.txt";
+			open my $input_h, "<:encoding(UTF-8)", "/tmp/report.txt";
+			open my $output_h, ">:encoding(UTF-8)", "/tmp/report_temp.txt";
 			while(my $string = <$input_h>) {
 				$string =~ s/]/"$cname"]/g;
 				$string =~ s/""/","/g;
@@ -90,29 +88,29 @@ foreach my $channels ( @channels ) {
 			}
 		};
 
-		unlink "$PATH_TMP_EPG/report.txt" while -f "$PATH_TMP_EPG/report.txt";
-		rename "$PATH_TMP_EPG/report_temp.txt" => "$PATH_TMP_EPG/report.txt";
-
+		unlink "/tmp/report.txt" while -f "/tmp/report.txt";
+		rename "/tmp/report_temp.txt" => "/tmp/report.txt";
+		
 		my $report;
 		{
 			local $/; #Enable 'slurp' mode
-			open my $fh, "<", "$PATH_TMP_EPG/report.txt";
+			open my $fh, "<", "/tmp/report.txt";
 			$report = <$fh>;
 			close $fh;
 		}
-
+		
 		my $reportdata = decode_json($report);
-
+		
 		my @report = @{ $reportdata->{'channels'} };
-
-		my %count;
+		
+		my %count;		
 		$count{$_}++ for (sort @report);
-
-
+		
+		
 		# ###################
 		# PRINT JSON OUTPUT #
 		# ###################
-
+				
 		for( keys %count) {
 			if( $_ eq $cname ) {
 				if( $count{$_} == 1 ) {
