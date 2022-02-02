@@ -36,9 +36,10 @@ use JSON;
 use Data::Dumper;
 use Time::Piece;
 
-my $PATH_TMP='/tmp'
-my $PATH_EPG="$PATH_TMP/epg"
 
+my $PATH_EPG=$ENV{'PATH_TMP_EPG'};
+
+print STDERR "DBG $0 # PATH_EPG : $PATH_EPG # PATH_TMP_EPG : " . $ENV{'PATH_TMP_EPG'};
 # READ JSON INPUT FILE: EPG WORKFILE
 my $json;
 {
@@ -52,7 +53,7 @@ my $json;
 my $chidlist;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "$PATH_EPG/compare.json" or die;
+    open my $fh, "<", "/tmp/compare.json" or die;
     $chidlist = <$fh>;
     close $fh;
 }
