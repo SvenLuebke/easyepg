@@ -27,18 +27,20 @@
 
 use strict;
 use warnings;
- 
+
 binmode STDOUT, ":utf8";
 binmode STDERR, ":utf8";
 use utf8;
- 
+
 use JSON;
+
+my $PATH_TMP_EPG="$ENV{'PATH_TMP_EPG'}";
 
 # READ JSON INPUT FILE: NEW CHLIST
 my $chlist_new;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "/tmp/chlist" or die;
+    open my $fh, "<", "$PATH_TMP_EPG/chlist" or die;
     $chlist_new = <$fh>;
     close $fh;
 }
@@ -73,8 +75,8 @@ my $configdata   = decode_json($chlist_config);
 
 # TOOL: NAME ==> ID
 
-# CREATE REPORT FILE TO CHECK DUPLICATES 
-open my $fh, ">", "/tmp/report.txt";
+# CREATE REPORT FILE TO CHECK DUPLICATES
+open my $fh, ">", "$PATH_TMP_EPG/report.txt";
 print $fh "{\"channels\":[]}";
 close $fh;
 
@@ -83,14 +85,14 @@ print "{ \"newname2id\": {\n";
 my @newchannels_name2id = @{ $newdata->{'channels'} };
 foreach my $newchannels ( @newchannels_name2id ) {
 	my @newschedule = @{ $newchannels->{'stationSchedules'} };
-	
+
 	foreach my $newschedule ( @newschedule ) {
 		my $newitem = $newschedule->{'station'};
-		
+
 		#
 		# DEFINE JSON VALUES
 		#
-        
+
 		# DEFINE NEW CHANNEL NAME
 		my $newcname   = $newitem->{'title'};
 		$newcname =~ s/\&/\&amp;/g; # REQUIRED TO READ XML FILE CORRECTLY
@@ -100,15 +102,15 @@ foreach my $newchannels ( @newchannels_name2id ) {
 
 		# DEFINE NEW CHANNEL ID
 		my $newcid     = $newitem->{'id'};
-		
-		
+
+
 		# ########################################
 		# UPDATE REPORT FILE TO CHECK DUPLICATES #
 		# ########################################
-		
+
 		do {
-			open my $input_h, "<:encoding(UTF-8)", "/tmp/report.txt";
-			open my $output_h, ">:encoding(UTF-8)", "/tmp/report_temp.txt";
+			open my $input_h, "<:encoding(UTF-8)", "$PATH_TMP_EPG/report.txt";
+			open my $output_h, ">:encoding(UTF-8)", "$PATH_TMP_EPG/report_temp.txt";
 			while(my $string = <$input_h>) {
 				$string =~ s/]/"$newcname"]/g;
 				$string =~ s/""/","/g;
@@ -116,29 +118,29 @@ foreach my $newchannels ( @newchannels_name2id ) {
 			}
 		};
 
-		unlink "/tmp/report.txt" while -f "/tmp/report.txt";
-		rename "/tmp/report_temp.txt" => "/tmp/report.txt";
-		
+		unlink "$PATH_TMP_EPG/report.txt" while -f "$PATH_TMP_EPG/report.txt";
+		rename "$PATH_TMP_EPG/report_temp.txt" => "$PATH_TMP_EPG/report.txt";
+
 		my $report;
 		{
 			local $/; #Enable 'slurp' mode
-			open my $fh, "<", "/tmp/report.txt";
+			open my $fh, "<", "$PATH_TMP_EPG/report.txt";
 			$report = <$fh>;
 			close $fh;
 		}
-		
+
 		my $reportdata = decode_json($report);
-		
+
 		my @report = @{ $reportdata->{'channels'} };
-		
-		my %count;		
+
+		my %count;
 		$count{$_}++ for (sort @report);
 
 
         # ###################
 		# PRINT JSON OUTPUT #
 		# ###################
-				
+
 		for( keys %count) {
 			if( $_ eq $newcname ) {
 				if( $count{$_} == 1 ) {
@@ -156,7 +158,7 @@ foreach my $newchannels ( @newchannels_name2id ) {
 # TOOL: ID ==> NAME
 
 # CREATE REPORT FILE TO CHECK DUPLICATES (2)
-open my $fh2, ">", "/tmp/report.txt";
+open my $fh2, ">", "$PATH_TMP_EPG/report.txt";
 print $fh2 "{\"channels\":[]}";
 close $fh2;
 
@@ -165,32 +167,32 @@ print "\"DUMMY\": \"DUMMY\" },\n\"newid2name\": {\n";
 my @newchannels_id2name = @{ $newdata->{'channels'} };
 foreach my $newchannels ( @newchannels_id2name ) {
 	my @newschedule = @{ $newchannels->{'stationSchedules'} };
-	
+
 	foreach my $newschedule ( @newschedule ) {
 		my $newitem = $newschedule->{'station'};
-		
+
 		#
 		# DEFINE JSON VALUES
 		#
-        
+
 		# DEFINE NEW CHANNEL NAME
 		my $newcname   = $newitem->{'title'};
 		$newcname =~ s/\&/\&amp;/g; # REQUIRED TO READ XML FILE CORRECTLY
 		$newcname =~ s///g;		# REMOVE "SELECTED AREA"
 		$newcname =~ s///g;
 		$newcname =~ s/\ \ /\ /g;
-		
+
 		# DEFINE NEW CHANNEL ID
 		my $newcid     = $newitem->{'id'};
-		
-		
+
+
 		# ########################################
 		# UPDATE REPORT FILE TO CHECK DUPLICATES #
 		# ########################################
-		
+
 		do {
-			open my $input_h, "<:encoding(UTF-8)", "/tmp/report.txt";
-			open my $output_h, ">:encoding(UTF-8)", "/tmp/report_temp.txt";
+			open my $input_h, "<:encoding(UTF-8)", "$PATH_TMP_EPG/report.txt";
+			open my $output_h, ">:encoding(UTF-8)", "$PATH_TMP_EPG/report_temp.txt";
 			while(my $string = <$input_h>) {
 				$string =~ s/]/"$newcname"]/g;
 				$string =~ s/""/","/g;
@@ -198,29 +200,29 @@ foreach my $newchannels ( @newchannels_id2name ) {
 			}
 		};
 
-		unlink "/tmp/report.txt" while -f "/tmp/report.txt";
-		rename "/tmp/report_temp.txt" => "/tmp/report.txt";
-		
+		unlink "$PATH_TMP_EPG/report.txt" while -f "$PATH_TMP_EPG/report.txt";
+		rename "$PATH_TMP_EPG/report_temp.txt" => "$PATH_TMP_EPG/report.txt";
+
 		my $report;
 		{
 			local $/; #Enable 'slurp' mode
-			open my $fh, "<", "/tmp/report.txt";
+			open my $fh, "<", "$PATH_TMP_EPG/report.txt";
 			$report = <$fh>;
 			close $fh;
 		}
-		
+
 		my $reportdata = decode_json($report);
-		
+
 		my @report = @{ $reportdata->{'channels'} };
-		
-		my %count;		
+
+		my %count;
 		$count{$_}++ for (sort @report);
 
 
         # ###################
 		# PRINT JSON OUTPUT #
 		# ###################
-				
+
 		for( keys %count) {
 			if( $_ eq $newcname ) {
 				if( $count{$_} == 1 ) {
@@ -235,7 +237,7 @@ foreach my $newchannels ( @newchannels_id2name ) {
 	}
 }
 
-				
+
 # ##################
 # OLD CHANNEL LIST #
 # ##################
@@ -243,23 +245,23 @@ foreach my $newchannels ( @newchannels_id2name ) {
 # TOOL: NAME ==> ID
 
 # CREATE REPORT FILE TO CHECK DUPLICATES (3)
-open my $fh3, ">", "/tmp/report.txt";
+open my $fh3, ">", "$PATH_TMP_EPG/report.txt";
 print $fh3 "{\"channels\":[]}";
 close $fh3;
 
 print "\"DUMMY\": \"DUMMY\" },\n\"oldname2id\": {\n";
-						
+
 my @oldchannels_name2id = @{ $olddata->{'channels'} };
 foreach my $oldchannels ( @oldchannels_name2id ) {
 	my @oldschedule = @{ $oldchannels->{'stationSchedules'} };
 
 	foreach my $oldschedule ( @oldschedule ) {
 		my $olditem     = $oldschedule->{'station'};
-						
+
 		#
 		# DEFINE JSON VALUES
 		#
-								
+
 		# DEFINE OLD CHANNEL NAME
 		my $oldcname   = $olditem->{'title'};
 		$oldcname =~ s/\&/\&amp;/g; # REQUIRED TO READ XML FILE CORRECTLY
@@ -269,15 +271,15 @@ foreach my $oldchannels ( @oldchannels_name2id ) {
 
 		# DEFINE OLD CHANNEL ID
 		my $oldcid     = $olditem->{'id'};
-		
-		
+
+
 		# ########################################
 		# UPDATE REPORT FILE TO CHECK DUPLICATES #
 		# ########################################
-		
+
 		do {
-			open my $input_h, "<:encoding(UTF-8)", "/tmp/report.txt";
-			open my $output_h, ">:encoding(UTF-8)", "/tmp/report_temp.txt";
+			open my $input_h, "<:encoding(UTF-8)", "$PATH_TMP_EPG/report.txt";
+			open my $output_h, ">:encoding(UTF-8)", "$PATH_TMP_EPG/report_temp.txt";
 			while(my $string = <$input_h>) {
 				$string =~ s/]/"$oldcname"]/g;
 				$string =~ s/""/","/g;
@@ -285,29 +287,29 @@ foreach my $oldchannels ( @oldchannels_name2id ) {
 			}
 		};
 
-		unlink "/tmp/report.txt" while -f "/tmp/report.txt";
-		rename "/tmp/report_temp.txt" => "/tmp/report.txt";
-		
+		unlink "$PATH_TMP_EPG/report.txt" while -f "$PATH_TMP_EPG/report.txt";
+		rename "$PATH_TMP_EPG/report_temp.txt" => "$PATH_TMP_EPG/report.txt";
+
 		my $report;
 		{
 			local $/; #Enable 'slurp' mode
-			open my $fh, "<", "/tmp/report.txt";
+			open my $fh, "<", "$PATH_TMP_EPG/report.txt";
 			$report = <$fh>;
 			close $fh;
 		}
-		
+
 		my $reportdata = decode_json($report);
-		
+
 		my @report = @{ $reportdata->{'channels'} };
-		
-		my %count;		
+
+		my %count;
 		$count{$_}++ for (sort @report);
 
 
         # ###################
 		# PRINT JSON OUTPUT #
 		# ###################
-				
+
 		for( keys %count) {
 			if( $_ eq $oldcname ) {
 				if( $count{$_} == 1 ) {
@@ -325,23 +327,23 @@ foreach my $oldchannels ( @oldchannels_name2id ) {
 # TOOL: ID ==> NAME
 
 # CREATE REPORT FILE TO CHECK DUPLICATES (4)
-open my $fh4, ">", "/tmp/report.txt";
+open my $fh4, ">", "$PATH_TMP_EPG/report.txt";
 print $fh4 "{\"channels\":[]}";
 close $fh4;
 
 print "\"DUMMY\": \"DUMMY\" },\n\"oldid2name\": {\n";
-						
+
 my @oldchannels_id2name = @{ $olddata->{'channels'} };
 foreach my $oldchannels ( @oldchannels_id2name ) {
 	my @oldschedule = @{ $oldchannels->{'stationSchedules'} };
 
 	foreach my $oldschedule ( @oldschedule ) {
 		my $olditem     = $oldschedule->{'station'};
-						
+
 		#
 		# DEFINE JSON VALUES
 		#
-								
+
 		# DEFINE OLD CHANNEL NAME
 		my $oldcname   = $olditem->{'title'};
 		$oldcname =~ s/\&/\&amp;/g; # REQUIRED TO READ XML FILE CORRECTLY
@@ -351,15 +353,15 @@ foreach my $oldchannels ( @oldchannels_id2name ) {
 
 		# DEFINE OLD CHANNEL ID
 		my $oldcid     = $olditem->{'id'};
-		
-		
+
+
 		# ########################################
 		# UPDATE REPORT FILE TO CHECK DUPLICATES #
 		# ########################################
-		
+
 		do {
-			open my $input_h, "<:encoding(UTF-8)", "/tmp/report.txt";
-			open my $output_h, ">:encoding(UTF-8)", "/tmp/report_temp.txt";
+			open my $input_h, "<:encoding(UTF-8)", "$PATH_TMP_EPG/report.txt";
+			open my $output_h, ">:encoding(UTF-8)", "$PATH_TMP_EPG/report_temp.txt";
 			while(my $string = <$input_h>) {
 				$string =~ s/]/"$oldcname"]/g;
 				$string =~ s/""/","/g;
@@ -367,29 +369,29 @@ foreach my $oldchannels ( @oldchannels_id2name ) {
 			}
 		};
 
-		unlink "/tmp/report.txt" while -f "/tmp/report.txt";
-		rename "/tmp/report_temp.txt" => "/tmp/report.txt";
-		
+		unlink "$PATH_TMP_EPG/report.txt" while -f "$PATH_TMP_EPG/report.txt";
+		rename "$PATH_TMP_EPG/report_temp.txt" => "$PATH_TMP_EPG/report.txt";
+
 		my $report;
 		{
 			local $/; #Enable 'slurp' mode
-			open my $fh, "<", "/tmp/report.txt";
+			open my $fh, "<", "$PATH_TMP_EPG/report.txt";
 			$report = <$fh>;
 			close $fh;
 		}
-		
+
 		my $reportdata = decode_json($report);
-		
+
 		my @report = @{ $reportdata->{'channels'} };
-		
-		my %count;		
+
+		my %count;
 		$count{$_}++ for (sort @report);
 
 
         # ###################
 		# PRINT JSON OUTPUT #
 		# ###################
-				
+
 		for( keys %count) {
 			if( $_ eq $oldcname ) {
 				if( $count{$_} == 1 ) {
@@ -402,7 +404,7 @@ foreach my $oldchannels ( @oldchannels_id2name ) {
 			}
 		}
 	}
-}	
+}
 
 
 # ###############
@@ -412,7 +414,7 @@ foreach my $oldchannels ( @oldchannels_id2name ) {
 # TOOL: NEW NAME ==> LOGO
 
 # CREATE REPORT FILE TO CHECK DUPLICATES (5)
-open my $fh5, ">", "/tmp/report.txt";
+open my $fh5, ">", "$PATH_TMP_EPG/report.txt";
 print $fh5 "{\"channels\":[]}";
 close $fh5;
 
@@ -421,34 +423,34 @@ print "\"DUMMY\": \"DUMMY\" },\n\"newname2logo\": {\n";
 my @newchannels_name2logo = @{ $newdata->{'channels'} };
 foreach my $newchannels ( @newchannels_name2logo ) {
 	my @newschedule = @{ $newchannels->{'stationSchedules'} };
-	
+
 	foreach my $newschedule ( @newschedule ) {
 		my $newitem = $newschedule->{'station'};
-		
-		
+
+
 		#
 		# DEFINE JSON VALUES
 		#
-        
+
 		# DEFINE NEW CHANNEL NAME
 		my $newcname   = $newitem->{'title'};
 		$newcname =~ s/\&/\&amp;/g; # REQUIRED TO READ XML FILE CORRECTLY
 		$newcname =~ s///g;		# REMOVE "SELECTED AREA"
 		$newcname =~ s///g;
 		$newcname =~ s/\ \ /\ /g;
-		
+
 		# DEFINE LOGO
 		my @logo	= @{ $newitem->{'images'} };
 		my $image_location;
-		
-		
+
+
 		# ########################################
 		# UPDATE REPORT FILE TO CHECK DUPLICATES #
 		# ########################################
-		
+
 		do {
-			open my $input_h, "<:encoding(UTF-8)", "/tmp/report.txt";
-			open my $output_h, ">:encoding(UTF-8)", "/tmp/report_temp.txt";
+			open my $input_h, "<:encoding(UTF-8)", "$PATH_TMP_EPG/report.txt";
+			open my $output_h, ">:encoding(UTF-8)", "$PATH_TMP_EPG/report_temp.txt";
 			while(my $string = <$input_h>) {
 				$string =~ s/]/"$newcname"]/g;
 				$string =~ s/""/","/g;
@@ -456,29 +458,29 @@ foreach my $newchannels ( @newchannels_name2logo ) {
 			}
 		};
 
-		unlink "/tmp/report.txt" while -f "/tmp/report.txt";
-		rename "/tmp/report_temp.txt" => "/tmp/report.txt";
-		
+		unlink "$PATH_TMP_EPG/report.txt" while -f "$PATH_TMP_EPG/report.txt";
+		rename "$PATH_TMP_EPG/report_temp.txt" => "$PATH_TMP_EPG/report.txt";
+
 		my $report;
 		{
 			local $/; #Enable 'slurp' mode
-			open my $fh, "<", "/tmp/report.txt";
+			open my $fh, "<", "$PATH_TMP_EPG/report.txt";
 			$report = <$fh>;
 			close $fh;
 		}
-		
+
 		my $reportdata = decode_json($report);
-		
+
 		my @report = @{ $reportdata->{'channels'} };
-		
-		my %count;		
+
+		my %count;
 		$count{$_}++ for (sort @report);
-		
-		
+
+
 		# ###################
 		# PRINT JSON OUTPUT #
 		# ###################
-				
+
 		for( keys %count) {
 			if( $_ eq $newcname ) {
 				if( $count{$_} == 1 ) {
@@ -492,7 +494,7 @@ foreach my $newchannels ( @newchannels_name2logo ) {
 				}
 			}
 		}
-		
+
 		# CHANNEL NAME + LOGO (language) (loop)
 		if( @logo ) {
 			while( my( $image_id, $image ) = each( @logo ) ) {
@@ -507,10 +509,10 @@ foreach my $newchannels ( @newchannels_name2logo ) {
 				print $logo_def . "\",\n";
 			} else {
 				print "\",\n";
-			}	
+			}
 		} else {
 			print "\",\n";
-		}     
+		}
 	}
 }
 
@@ -518,7 +520,7 @@ foreach my $newchannels ( @newchannels_name2logo ) {
 # TOOL: OLD NAME ==> LOGO
 
 # CREATE REPORT FILE TO CHECK DUPLICATES (6)
-open my $fh6, ">", "/tmp/report.txt";
+open my $fh6, ">", "$PATH_TMP_EPG/report.txt";
 print $fh6 "{\"channels\":[]}";
 close $fh6;
 
@@ -527,34 +529,34 @@ print "\"DUMMY\": \"DUMMY\" },\n\"oldname2logo\": {\n";
 my @oldchannels_name2logo = @{ $olddata->{'channels'} };
 foreach my $oldchannels ( @oldchannels_name2logo ) {
 	my @oldschedule = @{ $oldchannels->{'stationSchedules'} };
-	
+
 	foreach my $oldschedule ( @oldschedule ) {
 		my $olditem = $oldschedule->{'station'};
-		
-		
+
+
 		#
 		# DEFINE JSON VALUES
 		#
-        
+
 		# DEFINE NEW CHANNEL NAME
 		my $oldcname   = $olditem->{'title'};
 		$oldcname =~ s/\&/\&amp;/g; # REQUIRED TO READ XML FILE CORRECTLY
 		$oldcname =~ s///g;		# REMOVE "SELECTED AREA"
 		$oldcname =~ s///g;
 		$oldcname =~ s/\ \ /\ /g;
-		
+
 		# DEFINE LOGO
 		my @logo	= @{ $olditem->{'images'} };
 		my $image_location;
-		
-		
+
+
 		# ########################################
 		# UPDATE REPORT FILE TO CHECK DUPLICATES #
 		# ########################################
-		
+
 		do {
-			open my $input_h, "<:encoding(UTF-8)", "/tmp/report.txt";
-			open my $output_h, ">:encoding(UTF-8)", "/tmp/report_temp.txt";
+			open my $input_h, "<:encoding(UTF-8)", "$PATH_TMP_EPG/report.txt";
+			open my $output_h, ">:encoding(UTF-8)", "$PATH_TMP_EPG/report_temp.txt";
 			while(my $string = <$input_h>) {
 				$string =~ s/]/"$oldcname"]/g;
 				$string =~ s/""/","/g;
@@ -562,29 +564,29 @@ foreach my $oldchannels ( @oldchannels_name2logo ) {
 			}
 		};
 
-		unlink "/tmp/report.txt" while -f "/tmp/report.txt";
-		rename "/tmp/report_temp.txt" => "/tmp/report.txt";
-		
+		unlink "$PATH_TMP_EPG/report.txt" while -f "$PATH_TMP_EPG/report.txt";
+		rename "$PATH_TMP_EPG/report_temp.txt" => "$PATH_TMP_EPG/report.txt";
+
 		my $report;
 		{
 			local $/; #Enable 'slurp' mode
-			open my $fh, "<", "/tmp/report.txt";
+			open my $fh, "<", "$PATH_TMP_EPG/report.txt";
 			$report = <$fh>;
 			close $fh;
 		}
-		
+
 		my $reportdata = decode_json($report);
-		
+
 		my @report = @{ $reportdata->{'channels'} };
-		
-		my %count;		
+
+		my %count;
 		$count{$_}++ for (sort @report);
-		
-		
+
+
 		# ###################
 		# PRINT JSON OUTPUT #
 		# ###################
-				
+
 		for( keys %count) {
 			if( $_ eq $oldcname ) {
 				if( $count{$_} == 1 ) {
@@ -598,7 +600,7 @@ foreach my $oldchannels ( @oldchannels_name2logo ) {
 				}
 			}
 		}
-		
+
 		# CHANNEL NAME + LOGO (language) (loop)
 		if( @logo ) {
 			while( my( $image_id, $image ) = each( @logo ) ) {
@@ -613,21 +615,21 @@ foreach my $oldchannels ( @oldchannels_name2logo ) {
 				print $logo_def . "\",\n";
 			} else {
 				print "\",\n";
-			}	
+			}
 		} else {
 			print "\",\n";
 		}
 	}
 }
-							
+
 # #######################
 # CHANNEL CONFIGURATION #
 # #######################
 
-print "\"DUMMY\": \"DUMMY\" },\n\"config\": [\n";	
-												
+print "\"DUMMY\": \"DUMMY\" },\n\"config\": [\n";
+
 my @configdata = @{ $configdata->{'channels'} };
-		
+
 foreach my $configname ( @configdata ) {
 	print "\"$configname\",\n";
 }
