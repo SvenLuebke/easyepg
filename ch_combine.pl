@@ -30,7 +30,7 @@ use utf8;
 my $xml;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "xml/fileNAME" or die;
+    open my $fh, "<", "$ARGV[0]" or die;
     $xml = <$fh>;
     close $fh;
 }
@@ -39,7 +39,7 @@ my $xml;
 my $json;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "combine/channelsFILE" or die;
+    open my $fh, "<", "$ARGV[1]" or die;
     $json = <$fh>;
     close $fh;
 }
@@ -74,27 +74,27 @@ my @configdata = @{ $init->{'channels'} };
 
 foreach my $configdata ( @configdata ) {
 	foreach my $channel ( @channel ) {
-		
+
 		# ###################
 		# DEFINE XML VALUES #
 		# ###################
-		
+
 		# DEFINE CHANNEL STRINGS
 		my $channel_id = $channel->{id};
 		my $ch_logo    = $channel->{'icon'}->{'src'};
 		my $ch_lang    = $channel->{'display-name'}->{lang};
 		my $ch_name    = $channel->{'display-name'}->{_content};
-		
+
 		# ##################
 		# PRINT XML VALUES #
 		# ##################
-		
+
 		if( $channel_id eq $configdata ) {
-		
+
 			# CHANNEL ID + NAME + LOGO (condition)
 			print "<channel id=\"" . $channel_id . "\">\n";
 			print "  <display-name lang=\"" . $ch_lang . "\">" . $ch_name . "<\/display-name>\n";
-			
+
 			if( defined $ch_logo ) {
 				print "  <icon src=\"$ch_logo\" />\n</channel>\n";
 			} else {
