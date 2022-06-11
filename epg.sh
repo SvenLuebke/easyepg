@@ -141,12 +141,6 @@ then
 	ERROR="true"
 fi
 
-if [ ! -e ztt/save_page.js ]
-then
-	printf "\nMissing file in Zattoo folder: ztt/save_page.js"
-	ERROR="true"
-fi
-
 if [ ! -e ztt/settings.sh ]
 then
 	printf "\nMissing file in Zattoo folder: ztt/settings.sh"
@@ -618,7 +612,6 @@ fi
 command -v dialog >/dev/null 2>&1 || { printf "\ndialog is required but it's not installed!" >&2; ERROR2="true"; }
 command -v curl >/dev/null 2>&1 || { printf "\ncurl is required but it's not installed!" >&2; ERROR2="true"; }
 command -v wget >/dev/null 2>&1 || { printf "\nwget is required but it's not installed!" >&2; ERROR2="true"; }
-command -v phantomjs >/dev/null 2>&1 || { printf "\nPhantomJS is required but it's not installed!" >&2; ERROR2="true"; }
 command -v xmllint >/dev/null 2>&1 || { printf "\nlibxml2-utils is required but it's not installed!" >&2; ERROR2="true"; }
 command -v perl >/dev/null 2>&1 || { printf "\nperl is required but it's not installed!" >&2; ERROR2="true"; }
 command -v perldoc >/dev/null 2>&1 || { printf "\nperl-doc is required but it's not installed!" >&2; ERROR2="true"; }
