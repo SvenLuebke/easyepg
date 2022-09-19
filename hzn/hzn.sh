@@ -38,8 +38,15 @@ mkdir -p $PATH_TMP_EPG 2> /dev/null		# manifest files
 if grep -q "DE" init.json 2> /dev/null
 then
 	echo "+++ COUNTRY: GERMANY +++"
-	baseurl='https://legacy-dynamic.oesp.horizon.tv/oesp/v2/DE/deu/web'
+	COUNTRY=de
+	eval $(jq --arg COUNTRY ${COUNTRY} -r 'select(.country==$COUNTRY) | to_entries[] | "\(.key)=\(.value)"' config.json)
+	if [[ "$ProviderURL" == "" ]]; then
+	  echo no ProviderURL found in config:  $ProviderURL
+	  exit
+	fi
+	baseurl=$ProviderURL
 	baseurl_sed='legacy-dynamic.oesp.horizon.tv\/oesp\/v2\/DE\/deu\/web'
+	echo "baseurl = $baseurl"
 elif grep -q "AT" init.json 2> /dev/null
 then
 	echo "+++ COUNTRY: AUSTRIA +++"
@@ -129,6 +136,9 @@ rm $PATH_MANI/* 2> /dev/null
 printf "\rFetching channel list... "
 curl -s $baseurl/channels > $PATH_TMP_EPG/chlist
 jq '.' $PATH_TMP_EPG/chlist > $PATH_TMP_EPG/workfile
+
+echo "###   Copying chlist to chlist_old    ####"
+cp $PATH_TMP_EPG/chlist $PATH_TMP_EPG/chlist_old
 
 printf "\rChecking manifest files... "
 perl chlist_printer.pl > $PATH_TMP/compare.json
@@ -334,7 +344,7 @@ then
 	echo "======================================================="
 	echo ""
 
-	cp $PATH_TMP_EPG/chlist chlist_old
+	#cp $PATH_TMP_EPG/chlist $PATH_TMP_EPG/chlist_old
 else
 	rm $PATH_TMP_EPG/errors.txt 2> /dev/null
 fi

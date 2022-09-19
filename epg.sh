@@ -63,547 +63,64 @@ then
 	ERROR="true"
 fi
 
-if [ ! -e hzn/ch_json2xml.pl ]
-then
-	printf "\nMissing file in Horzon folder: ch_json2xml.pl "
-	ERROR="true"
-fi
-
-if [ ! -e hzn/cid_json.pl ]
-then
-	printf "\nMissing file in Horzon folder: cid_json.pl    "
-	ERROR="true"
-fi
-
-if [ ! -e hzn/epg_json2xml.pl ]
-then
-	printf "\nMissing file in Horzon folder: epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e hzn/settings.sh ]
-then
-	printf "\nMissing file in Horzon folder: settings.sh         "
-	ERROR="true"
-fi
-
-if [ ! -e hzn/chlist_printer.pl ]
-then
-	printf "\nMissing file in Horzon folder: chlist_printer.pl   "
-	ERROR="true"
-fi
-
-if [ ! -e hzn/compare_menu.pl ]
-then
-	printf "\nMissing file in Horzon folder: compare_menu.pl   "
-	ERROR="true"
-fi
-
-if [ ! -e hzn/hzn.sh ]
-then
-	printf "\nMissing file in Horzon folder: hzn.sh         "
-	ERROR="true"
-fi
-
-if [ ! -e ztt/ch_json2xml.pl ]
-then
-	printf "\nMissing file in Zattoo folder: ztt/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ztt/chlist_printer.pl ]
-then
-	printf "\nMissing file in Zattoo folder: ztt/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ztt/cid_json.pl ]
-then
-	printf "\nMissing file in Zattoo folder: ztt/cid_json.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ztt/compare_crid.pl ]
-then
-	printf "\nMissing file in Zattoo folder: ztt/compare_crid.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ztt/compare_menu.pl ]
-then
-	printf "\nMissing file in Zattoo folder: ztt/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ztt/epg_json2xml.pl ]
-then
-	printf "\nMissing file in Zattoo folder: ztt/epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ztt/settings.sh ]
-then
-	printf "\nMissing file in Zattoo folder: ztt/settings.sh"
-	ERROR="true"
-fi
-
-if [ ! -e ztt/ztt.sh ]
-then
-	printf "\nMissing file in Zattoo folder: ztt/ztt.sh"
-	ERROR="true"
-fi
-
-if [ ! -e swc/ch_json2xml.pl ]
-then
-	printf "\nMissing file in Swisscom folder: swc/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e swc/chlist_printer.pl ]
-then
-	printf "\nMissing file in Swisscom folder: swc/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e swc/cid_json.pl ]
-then
-	printf "\nMissing file in Swisscom folder: swc/cid_json.pl"
-	ERROR="true"
-fi
-
-if [ ! -e swc/compare_menu.pl ]
-then
-	printf "\nMissing file in Swisscom folder: swc/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e swc/epg_json2xml.pl ]
-then
-	printf "\nMissing file in Swisscom folder: swc/epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e swc/settings.sh ]
-then
-	printf "\nMissing file in Swisscom folder: swc/settings.sh"
-	ERROR="true"
-fi
-
-if [ ! -e swc/swc.sh ]
-then
-	printf "\nMissing file in Swisscom folder: swc/swc.sh"
-	ERROR="true"
-fi
-
-if [ ! -e swc/url_printer.pl ]
-then
-	printf "\nMissing file in Swisscom folder: swc/url_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvp/ch_json2xml.pl ]
-then
-	printf "\nMissing file in tvPlayer folder: tvp/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvp/chlist_printer.pl ]
-then
-	printf "\nMissing file in tvPlayer folder: tvp/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvp/cid_json.pl ]
-then
-	printf "\nMissing file in tvPlayer folder: tvp/cid_json.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvp/compare_menu.pl ]
-then
-	printf "\nMissing file in tvPlayer folder: tvp/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvp/epg_json2xml.pl ]
-then
-	printf "\nMissing file in tvPlayer folder: tvp/epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvp/settings.sh ]
-then
-	printf "\nMissing file in tvPlayer folder: tvp/settings.sh"
-	ERROR="true"
-fi
-
-if [ ! -e tvp/tvp.sh ]
-then
-	printf "\nMissing file in tvPlayer folder: tvp/tvp.sh"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/ch_json2xml.pl ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/chlist_printer.pl ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/proxy.sh ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/web_magentatv_de.php ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/cid_json.pl ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/cid_json.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/compare_menu.pl ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/epg_json2xml.pl ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/settings.sh ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/settings.sh"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/tkm.sh ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/tkm.sh"
-	ERROR="true"
-fi
-
-if [ ! -e tkm/web_magentatv_de.php ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/web_magentatv_de.php"
-	ERROR="true"
-fi
-
-
-if [ ! -e tkm/url_printer.pl ]
-then
-	printf "\nMissing file in MagentaTV folder: tkm/url_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e rdt/ch_json2xml.pl ]
-then
-	printf "\nMissing file in RadioTimes folder: rdt/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e rdt/chlist_printer.pl ]
-then
-	printf "\nMissing file in RadioTimes folder: rdt/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e rdt/cid_json.pl ]
-then
-	printf "\nMissing file in RadioTimes folder: rdt/cid_json.pl"
-	ERROR="true"
-fi
-
-if [ ! -e rdt/compare_crid.pl ]
-then
-	printf "\nMissing file in RadioTimes folder: rdt/compare_crid.pl"
-	ERROR="true"
-fi
-
-if [ ! -e rdt/compare_menu.pl ]
-then
-	printf "\nMissing file in RadioTimes folder: rdt/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e rdt/epg_json2xml.pl ]
-then
-	printf "\nMissing file in RadioTimes folder: rdt/epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e rdt/rdt.sh ]
-then
-	printf "\nMissing file in RadioTimes folder: rdt/rdt.sh"
-	ERROR="true"
-fi
-
-if [ ! -e rdt/settings.sh ]
-then
-	printf "\nMissing file in RadioTimes folder: settings/rdt.sh"
-	ERROR="true"
-fi
-
-if [ ! -e wpu/ch_json2xml.pl ]
-then
-	printf "\nMissing file in Waipu.tv folder: wpu/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e wpu/chlist_printer.pl ]
-then
-	printf "\nMissing file in Waipu.tv folder: wpu/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e wpu/cid_json.pl ]
-then
-	printf "\nMissing file in Waipu.tv folder: wpu/cid_json.pl"
-	ERROR="true"
-fi
-
-if [ ! -e wpu/compare_menu.pl ]
-then
-	printf "\nMissing file in Waipu.tv folder: wpu/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e wpu/epg_json2xml.pl ]
-then
-	printf "\nMissing file in Waipu.tv folder: wpu/epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e wpu/settings.sh ]
-then
-	printf "\nMissing file in Waipu.tv folder: wpu/settings.sh"
-	ERROR="true"
-fi
-
-if [ ! -e wpu/wpu.sh ]
-then
-	printf "\nMissing file in Waipu.tv folder: wpu/wpu.sh"
-	ERROR="true"
-fi
-
-if [ ! -e rdt/url_printer.pl ]
-then
-	printf "\nMissing file in RadioTimes folder: rdt/url_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvs/ch_json2xml.pl ]
-then
-	printf "\nMissing file in TV-Spielfilm folder: tvs/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvs/chlist_printer.pl ]
-then
-	printf "\nMissing file in TV-Spielfilm folder: tvs/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvs/cid_json.pl ]
-then
-	printf "\nMissing file in TV-Spielfilm folder: tvs/cid_json.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvs/compare_menu.pl ]
-then
-	printf "\nMissing file in TV-Spielfilm folder: tvs/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvs/epg_json2xml.pl ]
-then
-	printf "\nMissing file in TV-Spielfilm folder: tvs/epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvs/settings.sh ]
-then
-	printf "\nMissing file in TV-Spielfilm folder: tvs/settings.sh"
-	ERROR="true"
-fi
-
-if [ ! -e tvs/tvs.sh ]
-then
-	printf "\nMissing file in TV-Spielfilm folder: tvs/tvs.sh"
-	ERROR="true"
-fi
-
-if [ ! -e vdf/ch_json2xml.pl ]
-then
-	printf "\nMissing file in VODAFONE folder: vdf/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e vdf/chlist_printer.pl ]
-then
-	printf "\nMissing file in VODAFONE folder: vdf/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e vdf/cid_json.pl ]
-then
-	printf "\nMissing file in VODAFONE folder: vdf/cid_json.pl"
-	ERROR="true"
-fi
-
-if [ ! -e vdf/compare_menu.pl ]
-then
-	printf "\nMissing file in VODAFONE folder: vdf/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e vdf/epg_json2xml.pl ]
-then
-	printf "\nMissing file in VODAFONE folder: vdf/epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e vdf/settings.sh ]
-then
-	printf "\nMissing file in VODAFONE folder: vdf/settings.sh"
-	ERROR="true"
-fi
-
-if [ ! -e vdf/vdf.sh ]
-then
-	printf "\nMissing file in VODAFONE folder: vdf/vdf.sh"
-	ERROR="true"
-fi
-
-if [ ! -e tvtv/ch_json2xml.pl ]
-then
-	printf "\nMissing file in TVTV folder: tvtv/ch_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvtv/chlist_printer.pl ]
-then
-	printf "\nMissing file in TVTV folder: tvtv/chlist_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvtv/cid_json.pl ]
-then
-	printf "\nMissing file in TVTV folder: tvtv/cid_json.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvtv/compare_crid.pl ]
-then
-	printf "\nMissing file in TVTV folder: tvtv/compare_crid.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvtv/compare_menu.pl ]
-then
-	printf "\nMissing file in TVTV folder: tvtv/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvtv/epg_json2xml.pl ]
-then
-	printf "\nMissing file in TVTV folder: tvtv/epg_json2xml.pl"
-	ERROR="true"
-fi
-
-if [ ! -e tvtv/settings.sh ]
-then
-	printf "\nMissing file in TVTV folder: tvtv/settings.sh"
-	ERROR="true"
-fi
-
-if [ ! -e tvtv/tvtv.sh ]
-then
-	printf "\nMissing file in TVTV folder: tvtv/tvtv.sh"
-	ERROR="true"
-fi
-
-if [ ! -e tvtv/url_printer.pl ]
-then
-	printf "\nMissing file in TVTV folder: tvtv/url_printer.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ext/ch_ext.pl ]
-then
-	printf "\nMissing file in External folder: ext/ch_ext.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ext/compare_menu.pl ]
-then
-	printf "\nMissing file in External folder: ext/compare_menu.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ext/epg_ext.pl ]
-then
-	printf "\nMissing file in External folder: ext/epg_ext.pl"
-	ERROR="true"
-fi
-
-if [ ! -e ext/ext.sh ]
-then
-	printf "\nMissing file in External folder: ext/ext.sh"
-	ERROR="true"
-fi
-
-if [ ! -e ext/settings.sh ]
-then
-	printf "\nMissing file in External folder: ext/settings.sh"
-	ERROR="true"
-fi
-
-if [ ! -e combine.sh ]
-then
-	printf "\nMissing file in Main folder: combine.sh       "
-	ERROR="true"
-fi
-
-if [ ! -e ch_combine.pl ]
-then
-	printf "\nMissing file in Main folder: ch_combine.pl  "
-	ERROR="true"
-fi
-
-if [ ! -e prog_combine.pl ]
-then
-	printf "\nMissing file in Main folder: prog_combine.pl"
-	ERROR="true"
-fi
-
-if [ ! -e backup.sh ]
-then
-	printf "\nMissing file in Main folder: backup.sh"
-	ERROR="true"
-fi
-
-if [ ! -e restore.sh ]
-then
-	printf "\nMissing file in Main folder: restore.sh"
-	ERROR="true"
-fi
-
+FileCheck='Horizon; hzn/ch_json2xml.pl; Horizon; hzn/cid_json.pl; Horizon; hzn/epg_json2xml.pl; Horizon; hzn/settings.sh;
+Horizon; hzn/chlist_printer.pl; Horizon; hzn/compare_menu.pl; Horizon; hzn/hzn.sh;
+
+Zattoo; ztt/ch_json2xml.pl; Zattoo; ztt/chlist_printer.pl; Zattoo; ztt/cid_json.pl; Zattoo; ztt/compare_crid.pl;
+Zattoo; ztt/compare_menu.pl; Zattoo; ztt/epg_json2xml.pl; Zattoo; ztt/settings.sh; Zattoo; ztt/ztt.sh;
+
+Swisscom; swc/ch_json2xml.pl; Swisscom; swc/chlist_printer.pl; Swisscom; swc/cid_json.pl; Swisscom; swc/compare_menu.pl;
+Swisscom; swc/epg_json2xml.pl; Swisscom; swc/settings.sh; Swisscom; swc/swc.sh; Swisscom; swc/url_printer.pl;
+
+tvPlayer; tvp/ch_json2xml.pl; tvPlayer; tvp/chlist_printer.pl; tvPlayer; tvp/cid_json.pl; tvPlayer; tvp/compare_menu.pl;
+tvPlayer; tvp/epg_json2xml.pl; tvPlayer; tvp/settings.sh; tvPlayer; tvp/tvp.sh;
+
+MagentaTV; tkm/ch_json2xml.pl; MagentaTV; tkm/chlist_printer.pl; MagentaTV; tkm/proxy.sh; MagentaTV; tvp/compare_menu.pl;
+MagentaTV; tkm/cid_json.pl; MagentaTV; tkm/compare_menu.pl; MagentaTV; tkm/epg_json2xml.pl; MagentaTV; tkm/settings.sh;
+MagentaTV; tkm/tkm.sh; MagentaTV; tkm/web_magentatv_de.php; MagentaTV; tkm/url_printer.pl;
+
+RadioTimes; rdt/ch_json2xml.pl; RadioTimes; rdt/chlist_printer.pl; RadioTimes; rdt/cid_json.pl; RadioTimes; rdt/compare_crid.pl;
+RadioTimes; rdt/compare_menu.pl; RadioTimes; rdt/epg_json2xml.pl; RadioTimes; rdt/rdt.sh; RadioTimes; rdt/settings.sh;
+RadioTimes; rdt/url_printer.pl;
+
+Waipu.tv; wpu/ch_json2xml.pl;  Waipu.tv; wpu/chlist_printer.pl; Waipu.tv; wpu/cid_json.pl; Waipu.tv; wpu/compare_menu.pl;
+Waipu.tv; wpu/epg_json2xml.pl; Waipu.tv; wpu/settings.sh; Waipu.tv; wpu/wpu.sh;
+
+TV-Spielfilm; tvs/ch_json2xml.pl; TV-Spielfilm; tvs/chlist_printer.pl; TV-Spielfilm; tvs/cid_json.pl; TV-Spielfilm; tvs/compare_menu.pl;
+TV-Spielfilm; tvs/epg_json2xml.pl; TV-Spielfilm; tvs/settings.sh; TV-Spielfilm; tvs/tvs.sh;
+
+VODAFONE; vdf/ch_json2xml.pl; VODAFONE; vdf/chlist_printer.pl; VODAFONE; vdf/cid_json.pl; VODAFONE; vdf/compare_menu.pl;
+VODAFONE; vdf/epg_json2xml.pl; VODAFONE; vdf/settings.sh; VODAFONE; vdf/vdf.sh;
+
+TVTV; tvtv/ch_json2xml.pl; TVTV; tvtv/chlist_printer.pl; TVTV; tvtv/cid_json.pl; TVTV; tvtv/compare_crid.pl;
+TVTV; tvtv/compare_menu.pl; TVTV; tvtv/epg_json2xml.pl; TVTV; tvtv/settings.sh; TVTV; tvtv/tvtv.sh;
+TVTV; tvtv/url_printer.pl;
+
+External; ext/ch_ext.pl; External; ext/compare_menu.pl; External; ext/epg_ext.pl; External; ext/ext.sh;
+External; ext/settings.sh;
+
+Main; combine.sh; Main; ch_combine.pl; Main; prog_combine.pl; Main; backup.sh;
+Main; restore.sh; Main;'
+
+loop=0
+for i in $(echo $FileCheck | tr "; " "\n")
+do
+	if [ $((loop%2)) -eq 0 ]
+	then
+		providerName=$i
+	else
+		if [[ ! -e $i ]]; then
+			printf "\nMissing file in $providerName folder: $i"
+			ERROR="true"
+		fi
+	fi
+	loop=$((loop+1))
+done
+
+
+echo -e "\nPATH_TMP = ${PATH_TMP}"
+echo -e "PATH_TMP_EPG = ${PATH_TMP_EPG}"
+echo -e "PATH_TMP_IMDB = ${PATH_TMP_IMDB}"
 
 #
 # CHECK IF ALL APPLICATIONS ARE INSTALLED
@@ -951,21 +468,21 @@ do
 
 			if grep -q "1" /tmp/value
 			then
-				mkdir hzn/de
-				chmod 0777 hzn/de
-				echo '{"country":"DE","language":"de"}' > hzn/de/init.json
-				cp hzn/hzn.sh hzn/de/
-				cp hzn/ch_json2xml.pl hzn/de/
-				cp hzn/cid_json.pl hzn/de/
-				cp hzn/epg_json2xml.pl hzn/de/
-				cp hzn/settings.sh hzn/de/
-				cp hzn/chlist_printer.pl hzn/de/
-				cp hzn/compare_menu.pl hzn/de/
-				sed 's/XX/DE/g;s/YYY/deu/g' hzn/url_printer.pl > hzn/de/url_printer.pl
-				cd hzn/de && bash settings.sh
+				#mkdir hzn/de
+				#chmod 0777 hzn/de
+				echo '{"country":"DE","language":"de"}' > hzn/init.json
+				#cp hzn/hzn.sh hzn/de/
+				#cp hzn/ch_json2xml.pl hzn/de/
+				#cp hzn/cid_json.pl hzn/de/
+				#cp hzn/epg_json2xml.pl hzn/de/
+				#cp hzn/settings.sh hzn/de/
+				#cp hzn/chlist_printer.pl hzn/de/
+				#cp hzn/compare_menu.pl hzn/de/
+				#sed 's/XX/DE/g;s/YYY/deu/g' hzn/url_printer.pl > hzn/de/url_printer.pl
+				cd hzn && bash settings.sh
 				cd - > /dev/null
 
-				if [ ! -e hzn/de/channels.json ]
+				if [ ! -e hzn/channels.json ]
 				then
 					rm -rf hzn/de
 				fi
@@ -2202,11 +1719,11 @@ do
 
 			if grep -q "1" /tmp/value
 			then
-				cd hzn/de
+				cd hzn
 				bash settings.sh
 				cd - > /dev/null
 
-				if [ ! -e hzn/de/channels.json ]
+				if [ ! -e hzn/channels.json ]
 				then
 					rm -rf hzn/de xml/horizon_de.xml
 				fi
@@ -3221,20 +2738,25 @@ done
 
 clear
 
+function printHead()
+{
+	echo ""
+	echo " --------------------------------------------"
+	echo " $1 EPG SIMPLE XMLTV GRABBER            "
+	echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
+	echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
+	echo " --------------------------------------------"
+	echo ""
+	#sleep 2s
+}
+
 if grep -q "G" /tmp/value
 then
 	if ls -l hzn/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " HORIZON EPG SIMPLE XMLTV GRABBER            "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
-		cd hzn/de 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp $PATH_TMP_EPG/horizon.xml $PATH_TMP_EPG/horizon_de.xml 2> /dev/null
+		printHead 'HORIZON'
+		#echo '{"country":"de","ProviderURL":"https://web-api-pepper.horizon.tv/oesp/v2/DE/deu/web/"}' > hzn/config.json
+		cd hzn 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp $PATH_TMP_EPG/horizon.xml $PATH_TMP_EPG/horizon_de.xml 2> /dev/null
 		cd hzn/at 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp hzn/at/horizon.xml xml/horizon_at.xml 2> /dev/null
 		cd hzn/ch 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp hzn/ch/horizon.xml xml/horizon_ch.xml 2> /dev/null
 		cd hzn/nl 2> /dev/null && bash hzn.sh && cd - > /dev/null && cp hzn/nl/horizon.xml xml/horizon_nl.xml 2> /dev/null
@@ -3248,14 +2770,7 @@ then
 
 	if ls -l ztt/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " ZATTOO EPG SIMPLE XMLTV GRABBER             "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
+		printHead 'ZATTOO'
 
 		cd ztt/de 2> /dev/null && bash ztt.sh && cd - > /dev/null && cp ztt/de/zattoo.xml xml/zattoo_de.xml 2> /dev/null
 		cd ztt/ch 2> /dev/null && bash ztt.sh && cd - > /dev/null && cp ztt/ch/zattoo.xml xml/zattoo_ch.xml 2> /dev/null
@@ -3263,128 +2778,56 @@ then
 
 	if ls -l swc/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " SWISSCOM EPG SIMPLE XMLTV GRABBER           "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
+		printHead 'SWISSCOM'
 		cd swc/ch 2> /dev/null && bash swc.sh && cd - > /dev/null && cp swc/ch/swisscom.xml xml/swisscom_ch.xml 2> /dev/null
 	fi
 
 	if ls -l tvp/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " TVPLAYER EPG SIMPLE XMLTV GRABBER           "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
+		printHead 'TVPLAYER'
 		cd tvp/uk 2> /dev/null && bash tvp.sh && cd - > /dev/null && cp tvp/uk/tvp.xml xml/tvplayer_uk.xml 2> /dev/null
 	fi
 
 	if ls -l tkm/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " TELEKOM EPG SIMPLE XMLTV GRABBER            "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
+		printHead 'TELEKOM'
 		cd tkm/de 2> /dev/null && bash tkm.sh && cd - > /dev/null && cp tkm/de/magenta.xml xml/magentatv_de.xml 2> /dev/null
 	fi
 
 	if ls -l rdt/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " RADIOTIMES EPG SIMPLE XMLTV GRABBER         "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
+		printHead 'RADIOTIMES'
 		cd rdt/uk 2> /dev/null && bash rdt.sh && cd - > /dev/null && cp rdt/uk/radiotimes.xml xml/radiotimes_uk.xml 2> /dev/null
 	fi
 
 	if ls -l wpu/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " WAIPU.TV EPG SIMPLE XMLTV GRABBER           "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
+		printHead 'WAIPU.TV'
 		cd wpu/de 2> /dev/null && bash wpu.sh && cd - > /dev/null && cp wpu/de/waipu.xml xml/waipu_de.xml 2> /dev/null
 	fi
 
 	if ls -l tvs/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " TV-SPIELFILM EPG SIMPLE XMLTV GRABBER       "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
+		printHead 'TV-SPIELFILM'
 		cd tvs/de 2> /dev/null && bash tvs.sh && cd - > /dev/null && cp tvs/de/tv-spielfilm.xml xml/tv-spielfilm_de.xml 2> /dev/null
 	fi
 
 	if ls -l vdf/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " VODAFONE EPG SIMPLE XMLTV GRABBER           "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
+		printHead 'VODAFONE'
 		cd vdf/de 2> /dev/null && bash vdf.sh && cd - > /dev/null && cp vdf/de/vodafone.xml xml/vodafone_de.xml 2> /dev/null
 	fi
 
 	if ls -l tvtv/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " TVTV EPG SIMPLE XMLTV GRABBER               "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
+		printHead 'TVTV'
 		cd tvtv/us 2> /dev/null && bash tvtv.sh && cd - > /dev/null && cp tvtv/us/tvtv.xml xml/tvtv_us.xml 2> /dev/null
 		cd tvtv/ca 2> /dev/null && bash tvtv.sh && cd - > /dev/null && cp tvtv/ca/tvtv.xml xml/tvtv_ca.xml 2> /dev/null
 	fi
 
 	if ls -l ext/ | grep -q '^d'
 	then
-		echo ""
-		echo " --------------------------------------------"
-		echo " EXTERNAL EPG SIMPLE XMLTV GRABBER            "
-		echo " powered by easyEPG Grabber $(grep 'VER=' /tmp/initrun.txt | sed 's/VER=//g')"
-		echo " (c) 2019-2020 Jan-Luca Neumann / sunsettrack4    "
-		echo " --------------------------------------------"
-		echo ""
-		sleep 2s
-
+		printHead 'EXTERNAL'
 		cd ext/oa 2> /dev/null && bash ext.sh && cd - > /dev/null && cp ext/oa/external.xml xml/external_oa.xml 2> /dev/null
 		cd ext/ob 2> /dev/null && bash ext.sh && cd - > /dev/null && cp ext/ob/external.xml xml/external_ob.xml 2> /dev/null
 		cd ext/oc 2> /dev/null && bash ext.sh && cd - > /dev/null && cp ext/oc/external.xml xml/external_oc.xml 2> /dev/null

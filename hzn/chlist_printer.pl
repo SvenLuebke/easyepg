@@ -49,7 +49,7 @@ my $chlist_new;
 my $chlist_old;
 {
     local $/; #Enable 'slurp' mode
-    open my $fh, "<", "chlist_old" or die;
+    open my $fh, "<", "$PATH_TMP_EPG/chlist_old" or die;
     $chlist_old = <$fh>;
     close $fh;
 }
